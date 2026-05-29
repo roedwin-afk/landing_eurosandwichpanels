@@ -1,0 +1,200 @@
+---
+// src/components/layout/MobileMenu.astro
+import type { TranslationKeys } from '../../i18n/en';
+import type { Lang } from '../../i18n/utils';
+import NavLinks from '../ui/NavLinks.astro';
+
+interface Props {
+  t: TranslationKeys;
+  lang: Lang;
+  alternateURL: string;
+}
+
+const { t, lang, alternateURL } = Astro.props;
+
+const base = lang === 'es' ? '/es' : '';
+---
+
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu__inner">
+
+    <!-- Nav Links verticales -->
+    <nav class="mobile-menu__nav">
+      <NavLinks
+        t={t}
+        lang={lang}
+        orientation="vertical"
+        onClickClose={true}
+      />
+    </nav>
+
+    <!-- Divisor -->
+    <div class="mobile-menu__divider"></div>
+
+    <!-- Idiomas -->
+    <div class="mobile-menu__langs">
+      <span class="mobile-menu__lang-label">Language</span>
+      <div class="mobile-menu__lang-btns">
+        
+          href={lang === 'en' ? '/' : alternateURL}
+          class:list={['lang-btn', lang === 'en' && 'lang-btn--active']}
+          aria-label="Switch to English"
+        >
+          EN
+        </a>
+        
+          href={lang === 'es' ? '/es' : alternateURL}
+          class:list={['lang-btn', lang === 'es' && 'lang-btn--active']}
+          aria-label="Cambiar a Español"
+        >
+          ES
+        </a>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <a href={`${base}/#sample-builder`} class="mobile-menu__cta" data-close="true">
+      {t.nav.cta}
+    </a>
+
+  </div>
+</div>
+
+<style>
+  .mobile-menu {
+    display: none;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    z-index: 40;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height var(--transition-slow);
+  }
+
+  .mobile-menu.is-open {
+    display: block;
+    max-height: 600px;
+  }
+
+  .mobile-menu__inner {
+    padding: var(--space-4) var(--space-4) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .mobile-menu__nav {
+    width: 100%;
+  }
+
+  .mobile-menu__divider {
+    height: 1px;
+    background-color: var(--color-border);
+  }
+
+  .mobile-menu__langs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .mobile-menu__lang-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-menu__lang-btns {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .lang-btn {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    color: var(--color-steel);
+    transition: all var(--transition);
+    border: 1px solid transparent;
+  }
+
+  .lang-btn:hover {
+    color: var(--color-primary);
+    border-color: var(--color-border);
+  }
+
+  .lang-btn--active {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .mobile-menu__cta {
+    display: block;
+    text-align: center;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition);
+    letter-spacing: 0.03em;
+  }
+
+  .mobile-menu__cta:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  @media (min-width: 768px) {
+    .mobile-menu {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  function initMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.getElementById('mobile-menu-btn');
+
+    if (!menu || !btn) return;
+
+    // Toggle al hacer click en el botón
+    btn.addEventListener('click', () => {
+      const isOpen = menu.classList.contains('is-open');
+      menu.classList.toggle('is-open', !isOpen);
+      menu.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
+      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    });
+
+    // Cerrar al hacer click en un link del menú
+    menu.querySelectorAll('[data-close="true"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        menu.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Cerrar al hacer click fuera
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      if (!menu.contains(target) && !btn.contains(target)) {
+        menu.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Inicializar en carga normal y tras View Transitions
+  document.addEventListener('astro:page-load', initMobileMenu);
+</script>

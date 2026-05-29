@@ -1,0 +1,51 @@
+---
+// src/components/ui/ScrollReveal.astro
+// Componente wrapper que aplica animación reveal a sus hijos.
+
+interface Props {
+  delay?: 0 | 1 | 2 | 3;
+  class?: string;
+  tag?: 'div' | 'section' | 'article' | 'li' | 'span';
+}
+
+const {
+  delay = 0,
+  class: className = '',
+  tag: Tag = 'div',
+} = Astro.props;
+
+const delayClass = delay > 0 ? `reveal-delay-${delay}` : '';
+---
+
+<Tag class:list={['reveal', delayClass, className]}>
+  <slot />
+</Tag>
+
+<script>
+  function initScrollReveal() {
+    const elements = document.querySelectorAll<HTMLElement>('.reveal');
+
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Una vez visible, dejamos de observar
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: '0px 0px -48px 0px',
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  // Inicializar en carga normal y tras View Transitions
+  document.addEventListener('astro:page-load', initScrollReveal);
+</script>

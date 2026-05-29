@@ -8,12 +8,12 @@ export const es: TranslationKeys = {
       'Descubre Euro Sandwich Panels: qué son, cómo elegir el grosor correcto y por qué los paneles PIR, PUR y Rockwool de ingeniería europea lideran en eficiencia energética y construcción sostenible.',
   },
   nav: {
-    what: '¿Qué es un Panel?',
-    materials: 'Materiales del Núcleo',
-    calculator: 'Calculadora U-Value',
+    what: '¿Qué es?',
+    materials: 'Materiales',
+    calculator: 'Calculadora',
     technical: 'Especificaciones',
-    sample: 'Caja de Muestras',
-    cta: 'Pedir Muestra Gratis',
+    sample: 'Muestras',
+    cta: 'Muestra Gratis',
     langs: {
       en: 'EN',
       es: 'ES',

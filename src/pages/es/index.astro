@@ -1,0 +1,19 @@
+---
+// src/pages/es/index.astro
+import Layout from '../../layouts/Layout.astro';
+import { getLang, useTranslations, getAlternatePath } from '../../i18n/utils';
+
+const lang = getLang(Astro.url);
+const t = useTranslations(lang);
+const canonicalURL = Astro.url.href;
+const base = import.meta.env.BASE_URL;
+const currentPath = Astro.url.pathname.replace(base, "").replace(/^es\//, "");
+const alternateURL =
+    lang === "en" ? `${base}es/${currentPath}` : `${base}${currentPath}`;
+---
+
+<Layout t={t} lang={lang} canonicalURL={canonicalURL} alternateURL={alternateURL}>
+  <p style="padding: 2rem; color: var(--color-primary); font-weight: 600;">
+    ✅ ES index — Lang: {lang}
+  </p>
+</Layout>

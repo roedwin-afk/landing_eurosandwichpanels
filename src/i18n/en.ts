@@ -6,12 +6,12 @@ export const en = {
       'Discover Euro Sandwich Panels: what they are, how to choose the right thickness, and why European-engineered PIR, PUR and Rockwool panels lead in energy efficiency and sustainable construction.',
   },
   nav: {
-    what: 'What is a Panel?',
+    what: 'What is it?',
     materials: 'Core Materials',
-    calculator: 'U-Value Calculator',
+    calculator: 'Calculator',
     technical: 'Specifications',
     sample: 'Specimen Box',
-    cta: 'Order Free Sample Pack',
+    cta: 'Free Sample Pack',
     langs: {
       en: 'EN',
       es: 'ES',
