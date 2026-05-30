@@ -13,6 +13,7 @@ interface Props {
 
 const { t, lang, alternateURL } = Astro.props;
 
+const baseUrl = import.meta.env.BASE_URL;
 const base = lang === 'es' ? '/es' : '';
 
 
@@ -22,7 +23,7 @@ const base = lang === 'es' ? '/es' : '';
   <div class="container navbar__inner">
 
     <!-- Logo -->
-    <a href={`${base}/`} class="navbar__logo" aria-label="Euro Sandwich Panels Home">
+    <a href={baseUrl} class="navbar__logo" aria-label="Euro Sandwich Panels Home">
       <div class="navbar__logo-icon">
         <span class="navbar__logo-e">E</span>SP
       </div>
