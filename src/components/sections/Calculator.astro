@@ -1,0 +1,726 @@
+---
+// src/components/sections/Calculator.astro
+import type { TranslationKeys } from '../../i18n/en';
+import ScrollReveal from '../ui/ScrollReveal.astro';
+import { TriangleAlert, ChevronRight } from 'lucide-astro';
+
+interface Props {
+  t: TranslationKeys;
+  lang: Lang;
+}
+
+import type { Lang } from '../../i18n/utils';
+
+const { t, lang } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const sampleHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-builder`;
+
+type ClimateKey = 'nordic' | 'central' | 'south';
+type AppKey = 'cold' | 'logistics' | 'production' | 'office';
+
+const climates: ClimateKey[] = ['nordic', 'central', 'south'];
+const apps: { key: AppKey; label: string }[] = [
+  { key: 'cold',       label: t.calculator.apps.cold },
+  { key: 'logistics',  label: t.calculator.apps.logistics },
+  { key: 'production', label: t.calculator.apps.production },
+  { key: 'office',     label: t.calculator.apps.office },
+];
+---
+
+<section id="calculator" class="calculator section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="section-header">
+      <ScrollReveal>
+        <span class="section-eyebrow">{t.calculator.eyebrow}</span>
+      </ScrollReveal>
+      <ScrollReveal delay={1}>
+        <h2 class="section-title">{t.calculator.title}</h2>
+      </ScrollReveal>
+      <ScrollReveal delay={2}>
+        <p class="section-subtitle">{t.calculator.subtitle}</p>
+      </ScrollReveal>
+    </div>
+
+    <div class="calculator__layout">
+
+      <!-- Inputs -->
+      <ScrollReveal class="calculator__inputs">
+
+        <!-- Climate -->
+        <div class="calc__group">
+          <label class="calc__label">{t.calculator.climateLabel}</label>
+          <div class="calc__climate-grid">
+            {climates.map((key, i) => (
+              <button
+                class:list={['calc__climate-btn', i === 0 && 'calc__climate-btn--active']}
+                data-climate={key}
+              >
+                <span class="calc__climate-name">{t.calculator.climates[key].label}</span>
+                <span class="calc__climate-sub">{t.calculator.climates[key].sub}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Application -->
+        <div class="calc__group">
+          <label class="calc__label" for="calc-app">{t.calculator.appLabel}</label>
+          <select id="calc-app" class="calc__select">
+            {apps.map((app) => (
+              <option value={app.key}>{app.label}</option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Core material -->
+        <div class="calc__group">
+          <label class="calc__label">{t.calculator.coreLabel}</label>
+          <div class="calc__core-grid">
+            <label class="calc__core-option">
+              <input type="radio" name="calc-core" value="pir" checked />
+              <div class="calc__core-inner">
+                <span class="calc__core-name">PIR</span>
+                <span class="calc__core-lambda">0.022 W/mK</span>
+              </div>
+            </label>
+            <label class="calc__core-option">
+              <input type="radio" name="calc-core" value="rockwool" />
+              <div class="calc__core-inner">
+                <span class="calc__core-name">Rockwool</span>
+                <span class="calc__core-lambda">0.038 W/mK</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Thickness slider -->
+        <div class="calc__group">
+          <div class="calc__slider-header">
+            <label class="calc__label">{t.calculator.thicknessLabel}</label>
+            <span id="thickness-badge" class="calc__thickness-badge">120 mm</span>
+          </div>
+          <input
+            type="range"
+            id="calc-thickness"
+            min="40"
+            max="240"
+            step="20"
+            value="120"
+            class="calc__slider"
+          />
+          <div class="calc__slider-marks">
+            <span>40mm</span>
+            <span>100mm</span>
+            <span>140mm</span>
+            <span>180mm</span>
+            <span>240mm</span>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="calc__disclaimer">
+          <TriangleAlert size={14} />
+          <span>{t.calculator.disclaimer}</span>
+        </div>
+
+      </ScrollReveal>
+
+      <!-- Outputs -->
+      <ScrollReveal class="calculator__outputs" delay={2}>
+        <div class="calc__output-card">
+
+          <span class="calc__output-label">{t.calculator.output.label}</span>
+
+          <!-- Main metrics -->
+          <div class="calc__metrics">
+            <div class="calc__metric">
+              <span class="calc__metric-label">{t.calculator.output.uvalue}</span>
+              <span class="calc__metric-value">
+                <strong id="out-uvalue">0.18</strong>
+                <small>W/m²K</small>
+              </span>
+            </div>
+            <div class="calc__metric">
+              <span class="calc__metric-label">{t.calculator.output.rvalue}</span>
+              <span class="calc__metric-value">
+                <strong id="out-rvalue">5.45</strong>
+                <small>m²K/W</small>
+              </span>
+            </div>
+          </div>
+
+          <!-- Verdict -->
+          <div class="calc__verdict">
+            <div class="calc__verdict-top">
+              <span id="out-dot" class="calc__verdict-dot calc__verdict-dot--good"></span>
+              <span id="out-verdict" class="calc__verdict-text calc__verdict-text--good">
+                Target Compliant
+              </span>
+            </div>
+            <p id="out-explanation" class="calc__verdict-desc">
+              This configuration satisfies thermal envelope policies.
+            </p>
+          </div>
+
+          <!-- Sub metrics -->
+          <div class="calc__sub-metrics">
+            <div class="calc__sub-metric">
+              <span class="calc__sub-label">{t.calculator.output.acoustic}</span>
+              <span id="out-db" class="calc__sub-value">25 dB</span>
+            </div>
+            <div class="calc__sub-metric">
+              <span class="calc__sub-label">{t.calculator.output.fire}</span>
+              <span id="out-fire" class="calc__sub-value">B-s1, d0</span>
+            </div>
+            <div class="calc__sub-metric">
+              <span class="calc__sub-label">{t.calculator.output.weight}</span>
+              <span id="out-weight" class="calc__sub-value">12.2 kg</span>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="calc__output-cta">
+            <div>
+              <p class="calc__cta-desc">{t.calculator.output.ctaDesc}</p>
+              <p class="calc__cta-link">{t.calculator.output.ctaLink}</p>
+            </div>
+            <a href={sampleHref} class="calc__cta-btn">
+              {t.calculator.output.cta}
+              <ChevronRight size={14} />
+            </a>
+          </div>
+
+        </div>
+      </ScrollReveal>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .calculator {
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ── Layout ── */
+  .calculator__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    .calculator__layout {
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+  }
+
+  /* ── Inputs panel ── */
+  .calculator__inputs {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    justify-content: space-between;
+  }
+
+  /* ── Group ── */
+  .calc__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .calc__label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+  }
+
+  /* ── Climate buttons ── */
+  .calc__climate-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+
+  .calc__climate-btn {
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    cursor: pointer;
+    text-align: center;
+    transition: all var(--transition);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .calc__climate-btn:hover:not(.calc__climate-btn--active) {
+    border-color: var(--color-accent);
+    background-color: var(--color-white);
+  }
+
+  .calc__climate-btn--active {
+    border-color: var(--color-primary);
+    background-color: rgba(28, 53, 87, 0.05);
+  }
+
+  .calc__climate-name {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .calc__climate-sub {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  /* ── Select ── */
+  .calc__select {
+    width: 100%;
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    cursor: pointer;
+    outline: none;
+    transition: border-color var(--transition);
+  }
+
+  .calc__select:focus {
+    border-color: var(--color-accent);
+  }
+
+  /* ── Core radio ── */
+  .calc__core-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .calc__core-option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    cursor: pointer;
+    transition: border-color var(--transition);
+  }
+
+  .calc__core-option:has(input:checked) {
+    border-color: var(--color-accent);
+    background-color: rgba(224, 123, 57, 0.04);
+  }
+
+  .calc__core-option:hover {
+    border-color: var(--color-accent);
+  }
+
+  .calc__core-option input {
+    accent-color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .calc__core-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .calc__core-name {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .calc__core-lambda {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  /* ── Slider ── */
+  .calc__slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .calc__thickness-badge {
+    font-family: monospace;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-accent);
+    background-color: rgba(224, 123, 57, 0.1);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .calc__slider {
+    width: 100%;
+    accent-color: var(--color-accent);
+    height: 6px;
+    cursor: pointer;
+  }
+
+  .calc__slider-marks {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    font-weight: 600;
+    margin-top: var(--space-1);
+  }
+
+  /* ── Disclaimer ── */
+  .calc__disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .calc__disclaimer :global(svg) {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Output card ── */
+  .calculator__outputs {
+    height: 100%;
+  }
+
+  .calc__output-card {
+    height: 100%;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .calc__output-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(224,123,57,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .calc__output-label {
+    font-size: 0.625rem;
+    font-family: monospace;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* ── Metrics ── */
+  .calc__metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .calc__metric-label {
+    display: block;
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.6);
+    margin-bottom: var(--space-1);
+  }
+
+  .calc__metric-value {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+
+  .calc__metric-value strong {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 900;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .calc__metric-value small {
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── Verdict ── */
+  .calc__verdict {
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .calc__verdict-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .calc__verdict-dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .calc__verdict-dot--good {
+    background-color: #34d399;
+    animation: pulse 2s infinite;
+  }
+
+  .calc__verdict-dot--warn {
+    background-color: #fbbf24;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.5; }
+  }
+
+  .calc__verdict-text {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .calc__verdict-text--good { color: #34d399; }
+  .calc__verdict-text--warn { color: #fbbf24; }
+
+  .calc__verdict-desc {
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+  }
+
+  /* ── Sub metrics ── */
+  .calc__sub-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+
+  .calc__sub-metric {
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    text-align: center;
+  }
+
+  .calc__sub-label {
+    font-size: 0.625rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .calc__sub-value {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ── CTA ── */
+  .calc__output-cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: auto;
+  }
+
+  @media (min-width: 480px) {
+    .calc__output-cta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .calc__cta-desc {
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.5);
+  }
+
+  .calc__cta-link {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .calc__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+    transition: background-color var(--transition);
+    flex-shrink: 0;
+  }
+
+  .calc__cta-btn:hover {
+    background-color: var(--color-accent-hover);
+  }
+</style>
+
+<script>
+  function initCalculator() {
+    const slider = document.getElementById('calc-thickness') as HTMLInputElement;
+    const badge  = document.getElementById('thickness-badge');
+    const appSel = document.getElementById('calc-app') as HTMLSelectElement;
+    const climateBtns = document.querySelectorAll<HTMLButtonElement>('.calc__climate-btn');
+    const coreRadios  = document.querySelectorAll<HTMLInputElement>('input[name="calc-core"]');
+
+    let currentClimate = 'nordic';
+
+    if (!slider || !badge || !appSel) return;
+
+    function calculate() {
+      const thickness = parseFloat(slider.value);
+      const core = (document.querySelector('input[name="calc-core"]:checked') as HTMLInputElement)?.value ?? 'pir';
+      const app  = appSel.value;
+
+      const lambda     = core === 'pir' ? 0.022 : 0.038;
+      const thicknessM = thickness / 1000;
+      const rInsulation = thicknessM / lambda;
+      const rTotal      = 0.17 + rInsulation;
+      const uValue      = 1 / rTotal;
+
+      // Target U by climate + app
+      let targetU = 0.25;
+      if (currentClimate === 'nordic') targetU = 0.15;
+      if (currentClimate === 'south')  targetU = 0.35;
+      if (app === 'cold')              targetU = 0.12;
+
+      // Weight
+      const baseWeight = core === 'pir' ? 40 : 100;
+      const panelWeight = thicknessM * baseWeight + 8.5;
+
+      // dB
+      const db = core === 'pir'
+        ? 22 + Math.round(thickness / 60)
+        : 28 + Math.round(thickness / 40);
+
+      // Fire
+      const fire = core === 'pir' ? 'B-s1, d0' : 'A2-s1, d0';
+
+      // Update DOM
+      const uEl = document.getElementById('out-uvalue');
+      const rEl = document.getElementById('out-rvalue');
+      const dbEl = document.getElementById('out-db');
+      const fireEl = document.getElementById('out-fire');
+      const weightEl = document.getElementById('out-weight');
+      const dot = document.getElementById('out-dot');
+      const verdict = document.getElementById('out-verdict');
+      const explanation = document.getElementById('out-explanation');
+
+      if (uEl) uEl.textContent = uValue.toFixed(2);
+      if (rEl) rEl.textContent = rTotal.toFixed(2);
+      if (dbEl) dbEl.textContent = `${db} dB`;
+      if (fireEl) fireEl.textContent = fire;
+      if (weightEl) weightEl.textContent = `${panelWeight.toFixed(1)} kg`;
+
+      const compliant = uValue <= targetU;
+
+      if (dot) {
+        dot.className = `calc__verdict-dot ${compliant ? 'calc__verdict-dot--good' : 'calc__verdict-dot--warn'}`;
+      }
+      if (verdict) {
+        verdict.className = `calc__verdict-text ${compliant ? 'calc__verdict-text--good' : 'calc__verdict-text--warn'}`;
+        verdict.textContent = compliant ? 'Target Compliant Envelope' : 'Sub-Optimal Insulation Layer';
+      }
+      if (explanation) {
+        explanation.textContent = compliant
+          ? `This ${thickness}mm ${core.toUpperCase()} configuration meets the target (U ≤ ${targetU.toFixed(2)} W/m²K).`
+          : `Increase thickness to meet target (U < ${targetU.toFixed(2)} W/m²K required).`;
+      }
+    }
+
+    // Slider
+    slider.addEventListener('input', () => {
+      if (badge) badge.textContent = `${slider.value} mm`;
+      calculate();
+    });
+
+    // App select
+    appSel.addEventListener('change', calculate);
+
+    // Core radios
+    coreRadios.forEach((r) => r.addEventListener('change', calculate));
+
+    // Climate buttons
+    climateBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        climateBtns.forEach((b) => b.classList.remove('calc__climate-btn--active'));
+        btn.classList.add('calc__climate-btn--active');
+        currentClimate = btn.dataset.climate ?? 'nordic';
+
+        // Adjust slider default
+        const defaults: Record<string, number> = { nordic: 160, central: 100, south: 60 };
+        slider.value = String(defaults[currentClimate] ?? 120);
+        if (badge) badge.textContent = `${slider.value} mm`;
+        calculate();
+      });
+    });
+
+    calculate();
+  }
+
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

@@ -1,0 +1,449 @@
+---
+import type { TranslationKeys } from '../../i18n/en';
+import ScrollReveal from '../ui/ScrollReveal.astro';
+import { CheckCircle, XCircle } from 'lucide-astro';
+
+interface Props {
+  t: TranslationKeys;
+}
+
+const { t } = Astro.props;
+
+type MaterialKey = 'pir' | 'rockwool' | 'pur';
+const tabKeys: MaterialKey[] = ['pir', 'rockwool', 'pur'];
+---
+
+<section id="materials" class="materials section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="section-header">
+      <ScrollReveal>
+        <span class="section-eyebrow">{t.materials.eyebrow}</span>
+      </ScrollReveal>
+      <ScrollReveal delay={1}>
+        <h2 class="section-title">{t.materials.title}</h2>
+      </ScrollReveal>
+      <ScrollReveal delay={2}>
+        <p class="section-subtitle">{t.materials.subtitle}</p>
+      </ScrollReveal>
+    </div>
+
+    <!-- Tab layout -->
+    <div class="materials__layout">
+
+      <!-- Sidebar tabs -->
+      <ScrollReveal class="materials__sidebar">
+        <div class="materials__tabs">
+          {tabKeys.map((key, i) => (
+            <button
+              class:list={['materials__tab', i === 0 && 'materials__tab--active']}
+              data-tab={key}
+              aria-selected={i === 0 ? 'true' : 'false'}
+            >
+              <div class="materials__tab-top">
+                <span class="materials__tab-label">
+                  {t.materials.tabs[key].label}
+                </span>
+                <span class="materials__tab-badge">
+                  {t.materials.tabs[key].badge}
+                </span>
+              </div>
+              <p class="materials__tab-tagline">
+                {t.materials.tabs[key].tagline}
+              </p>
+            </button>
+          ))}
+        </div>
+      </ScrollReveal>
+
+      <!-- Detail panel -->
+      <ScrollReveal class="materials__panel" delay={1}>
+        {tabKeys.map((key, i) => {
+          const d = t.materials.data[key];
+          return (
+            <div
+              class:list={['materials__detail', i === 0 && 'materials__detail--active']}
+              data-panel={key}
+            >
+              <!-- Panel header -->
+              <div class="materials__detail-header">
+                <div>
+                  <h3 class="materials__detail-title">{d.title}</h3>
+                  <span class="materials__detail-cert">{t.materials.detail.cert}</span>
+                </div>
+                <div class="materials__detail-lambda">
+                  <span class="materials__detail-lambda-label">{t.materials.detail.lambdaLabel}</span>
+                  <strong class="materials__detail-lambda-value">{d.lambda}</strong>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <p class="materials__detail-desc">{d.desc}</p>
+
+              <!-- Stats grid -->
+              <div class="materials__stats">
+                <div class="materials__stat">
+                  <span class="materials__stat-label">{t.materials.detail.fireLabel}</span>
+                  <span class="materials__stat-value">{d.fire}</span>
+                </div>
+                <div class="materials__stat">
+                  <span class="materials__stat-label">{t.materials.detail.weightLabel}</span>
+                  <span class="materials__stat-value">{d.weight}</span>
+                </div>
+                <div class="materials__stat">
+                  <span class="materials__stat-label">{t.materials.detail.acousticLabel}</span>
+                  <span class="materials__stat-value">{d.acoustic}</span>
+                </div>
+              </div>
+
+              <!-- Pros & Cons -->
+              <div class="materials__proscons">
+                <div>
+                  <h4 class="materials__proscons-title">{t.materials.detail.prosTitle}</h4>
+                  <ul class="materials__list materials__list--pros">
+                    {d.pros.map((pro) => (
+                      <li>
+                        <CheckCircle size={14} strokeWidth={2.5} />
+                        {pro}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="materials__proscons-title">{t.materials.detail.consTitle}</h4>
+                  <ul class="materials__list materials__list--cons">
+                    {d.cons.map((con) => (
+                      <li>
+                        <XCircle size={14} strokeWidth={2.5} />
+                        {con}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          );
+        })}
+      </ScrollReveal>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .materials {
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ── Layout ── */
+  .materials__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    .materials__layout {
+      grid-template-columns: 5fr 7fr;
+      align-items: start;
+    }
+  }
+
+  /* ── Sidebar ── */
+  .materials__tabs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .materials__tab {
+    width: 100%;
+    text-align: left;
+    padding: var(--space-5);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    cursor: pointer;
+    transition: all var(--transition-slow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Hover solo para tabs NO activos */
+  .materials__tab:not(.materials__tab--active):hover {
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-accent);
+  }
+
+  .materials__tab:not(.materials__tab--active):hover .materials__tab-label {
+    color: var(--color-primary);
+  }
+
+  /* Tab activo */
+  .materials__tab--active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* ── Tab top row ── */
+  .materials__tab-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  /* ── Tab label ── */
+  .materials__tab-label {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text);
+    transition: color var(--transition);
+  }
+
+  .materials__tab--active .materials__tab-label {
+    color: var(--color-white);
+  }
+
+  /* ── Tab badge ── */
+  .materials__tab-badge {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-steel);
+    color: var(--color-white);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .materials__tab--active .materials__tab-badge {
+    background-color: var(--color-accent);
+  }
+
+  /* ── Tab tagline ── */
+  .materials__tab-tagline {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    line-height: 1.6;
+    transition: color var(--transition);
+  }
+
+  .materials__tab--active .materials__tab-tagline {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ── Detail panel ── */
+  .materials__panel {
+    position: relative;
+  }
+
+  .materials__detail {
+    display: none;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6) var(--space-8);
+    flex-direction: column;
+    gap: var(--space-6);
+    animation: fadeIn 0.25s ease;
+  }
+
+  .materials__detail--active {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Detail header ── */
+  .materials__detail-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 640px) {
+    .materials__detail-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  .materials__detail-title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .materials__detail-cert {
+    display: block;
+    font-size: var(--text-xs);
+    font-family: monospace;
+    color: var(--color-accent);
+    margin-top: var(--space-1);
+    letter-spacing: 0.05em;
+  }
+
+  .materials__detail-lambda {
+    text-align: left;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 640px) {
+    .materials__detail-lambda {
+      text-align: right;
+    }
+  }
+
+  .materials__detail-lambda-label {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .materials__detail-lambda-value {
+    font-size: var(--text-3xl);
+    font-weight: 900;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  /* ── Description ── */
+  .materials__detail-desc {
+    font-size: var(--text-sm);
+    color: var(--color-steel);
+    line-height: 1.8;
+  }
+
+  /* ── Stats ── */
+  .materials__stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 480px) {
+    .materials__stats {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .materials__stat {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .materials__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .materials__stat-value {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.4;
+  }
+
+  /* ── Pros & Cons ── */
+  .materials__proscons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 640px) {
+    .materials__proscons {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .materials__proscons-title {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .materials__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .materials__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-steel);
+    line-height: 1.6;
+  }
+
+  .materials__list li :global(svg) {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .materials__list--pros li :global(svg) {
+    color: #16a34a;
+  }
+
+  .materials__list--cons li :global(svg) {
+    color: #dc2626;
+  }
+</style>
+
+<script>
+  function initMaterialTabs() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.materials__tab');
+    const panels = document.querySelectorAll<HTMLDivElement>('.materials__detail');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const key = tab.dataset.tab;
+
+        tabs.forEach((t) => {
+          t.classList.remove('materials__tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+
+        panels.forEach((p) => {
+          p.classList.remove('materials__detail--active');
+        });
+
+        tab.classList.add('materials__tab--active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const panel = document.querySelector<HTMLDivElement>(
+          `.materials__detail[data-panel="${key}"]`
+        );
+        panel?.classList.add('materials__detail--active');
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initMaterialTabs);
+</script>

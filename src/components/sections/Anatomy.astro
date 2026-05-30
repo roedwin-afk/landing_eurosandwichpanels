@@ -1,0 +1,157 @@
+---
+import type { TranslationKeys } from '../../i18n/en';
+import ScrollReveal from '../ui/ScrollReveal.astro';
+import { Check } from 'lucide-astro';
+
+interface Props {
+  t: TranslationKeys;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="what-is-it" class="anatomy section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="section-header">
+      <ScrollReveal>
+        <span class="section-eyebrow">{t.anatomy.eyebrow}</span>
+      </ScrollReveal>
+      <ScrollReveal delay={1}>
+        <h2 class="section-title">{t.anatomy.title}</h2>
+      </ScrollReveal>
+      <ScrollReveal delay={2}>
+        <p class="section-subtitle">{t.anatomy.subtitle}</p>
+      </ScrollReveal>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="anatomy__grid">
+      {t.anatomy.cards.map((card, i) => (
+        <ScrollReveal delay={(i % 3) as 0 | 1 | 2 | 3}>
+          <article class="anatomy__card">
+            <div class:list={[
+              'anatomy__card-number',
+              i === 1 ? 'anatomy__card-number--accent' : 'anatomy__card-number--primary'
+            ]}>
+              {card.number}
+            </div>
+
+            <h3 class="anatomy__card-title">{card.title}</h3>
+            <p class="anatomy__card-desc">{card.desc}</p>
+
+            <ul class="anatomy__card-specs">
+              {card.specs.map((spec) => (
+                <li class="anatomy__card-spec">
+                  <Check size={12} strokeWidth={3} />
+                  {spec}
+                </li>
+              ))}
+            </ul>
+          </article>
+        </ScrollReveal>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .anatomy {
+    background-color: var(--color-bg);
+  }
+
+  /* ── Grid ── */
+  .anatomy__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .anatomy__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ── Card ── */
+  .anatomy__card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow var(--transition-slow), transform var(--transition-slow);
+  }
+
+  .anatomy__card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  /* ── Number badge ── */
+  .anatomy__card-number {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--text-lg);
+    flex-shrink: 0;
+  }
+
+  .anatomy__card-number--primary {
+    background-color: rgba(28, 53, 87, 0.08);
+    color: var(--color-primary);
+  }
+
+  .anatomy__card-number--accent {
+    background-color: rgba(224, 123, 57, 0.1);
+    color: var(--color-accent);
+  }
+
+  /* ── Title ── */
+  .anatomy__card-title {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.3;
+  }
+
+  /* ── Description ── */
+  .anatomy__card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-steel);
+    line-height: 1.8;
+    flex: 1;
+  }
+
+  /* ── Specs list ── */
+  .anatomy__card-specs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .anatomy__card-spec {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    line-height: 1.5;
+  }
+
+  .anatomy__card-spec svg {
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+</style>
