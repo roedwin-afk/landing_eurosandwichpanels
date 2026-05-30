@@ -13,17 +13,24 @@ interface Props {
 
 const { t, lang, alternateURL } = Astro.props;
 
-const baseUrl = import.meta.env.BASE_URL;
-const base = lang === 'es' ? '/es' : '';
+const base = import.meta.env.BASE_URL; // "/landing_eurosandwichpanels/"
 
+// Logo: raíz del idioma actual
+const logoHref = lang === 'es' ? `${base}es/` : base;
 
+// Switcher: el activo apunta a sí mismo, el inactivo apunta al alternate
+const enURL = lang === 'en' ? base : alternateURL;
+const esURL = lang === 'es' ? `${base}es/` : alternateURL;
+
+// CTA
+const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-builder`;
 ---
 
 <header class="navbar">
   <div class="container navbar__inner">
 
     <!-- Logo -->
-    <a href={baseUrl} class="navbar__logo" aria-label="Euro Sandwich Panels Home">
+    <a href={logoHref} class="navbar__logo" aria-label="Euro Sandwich Panels Home">
       <div class="navbar__logo-icon">
         <span class="navbar__logo-e">E</span>SP
       </div>
@@ -44,7 +51,7 @@ const base = lang === 'es' ? '/es' : '';
       <!-- Language switcher (desktop) -->
       <div class="navbar__langs">
         
-        <a  href={alternateURL}
+        <a  href={enURL}
           class:list={['navbar__lang', lang === 'en' && 'navbar__lang--active']}
           aria-label="Switch to English"
         >
@@ -52,7 +59,7 @@ const base = lang === 'es' ? '/es' : '';
         </a>
         <span class="navbar__lang-sep">|</span>
         
-        <a  href={alternateURL}
+        <a  href={esURL}
           class:list={['navbar__lang', lang === 'es' && 'navbar__lang--active']}
           aria-label="Cambiar a Español"
         >
@@ -61,7 +68,7 @@ const base = lang === 'es' ? '/es' : '';
       </div>
 
       <!-- CTA Button (desktop) -->
-      <a href={`${base}/#sample-builder`} class="navbar__cta">
+      <a href={ctaHref} class="navbar__cta">
         {t.nav.cta}
       </a>
 
@@ -103,7 +110,6 @@ const base = lang === 'es' ? '/es' : '';
     gap: var(--space-6);
   }
 
-  /* ── Logo ── */
   .navbar__logo {
     display: flex;
     align-items: center;
@@ -112,9 +118,7 @@ const base = lang === 'es' ? '/es' : '';
     transition: opacity var(--transition);
   }
 
-  .navbar__logo:hover {
-    opacity: 0.85;
-  }
+  .navbar__logo:hover { opacity: 0.85; }
 
   .navbar__logo-icon {
     height: 2.5rem;
@@ -130,9 +134,7 @@ const base = lang === 'es' ? '/es' : '';
     flex-shrink: 0;
   }
 
-  .navbar__logo-e {
-    color: var(--color-accent);
-  }
+  .navbar__logo-e { color: var(--color-accent); }
 
   .navbar__logo-name {
     display: block;
@@ -153,7 +155,6 @@ const base = lang === 'es' ? '/es' : '';
     margin-top: -2px;
   }
 
-  /* ── Desktop Nav ── */
   .navbar__nav {
     display: none;
     flex: 1;
@@ -161,12 +162,9 @@ const base = lang === 'es' ? '/es' : '';
   }
 
   @media (min-width: 768px) {
-    .navbar__nav {
-      display: flex;
-    }
+    .navbar__nav { display: flex; }
   }
 
-  /* ── Actions ── */
   .navbar__actions {
     display: flex;
     align-items: center;
@@ -174,7 +172,6 @@ const base = lang === 'es' ? '/es' : '';
     flex-shrink: 0;
   }
 
-  /* ── Language switcher ── */
   .navbar__langs {
     display: none;
     align-items: center;
@@ -182,9 +179,7 @@ const base = lang === 'es' ? '/es' : '';
   }
 
   @media (min-width: 1024px) {
-    .navbar__langs {
-      display: flex;
-    }
+    .navbar__langs { display: flex; }
   }
 
   .navbar__lang {
@@ -196,9 +191,7 @@ const base = lang === 'es' ? '/es' : '';
     transition: all var(--transition);
   }
 
-  .navbar__lang:hover {
-    color: var(--color-primary);
-  }
+  .navbar__lang:hover { color: var(--color-primary); }
 
   .navbar__lang--active {
     background-color: var(--color-primary);
@@ -210,7 +203,6 @@ const base = lang === 'es' ? '/es' : '';
     font-size: var(--text-xs);
   }
 
-  /* ── CTA ── */
   .navbar__cta {
     display: none;
     background-color: var(--color-accent);
@@ -225,17 +217,12 @@ const base = lang === 'es' ? '/es' : '';
     white-space: nowrap;
   }
 
-  .navbar__cta:hover {
-    background-color: var(--color-accent-hover);
-  }
+  .navbar__cta:hover { background-color: var(--color-accent-hover); }
 
   @media (min-width: 640px) {
-    .navbar__cta {
-      display: block;
-    }
+    .navbar__cta { display: block; }
   }
 
-  /* ── Hamburger ── */
   .navbar__hamburger {
     display: flex;
     flex-direction: column;
@@ -248,9 +235,7 @@ const base = lang === 'es' ? '/es' : '';
     transition: background-color var(--transition);
   }
 
-  .navbar__hamburger:hover {
-    background-color: var(--color-bg);
-  }
+  .navbar__hamburger:hover { background-color: var(--color-bg); }
 
   .navbar__hamburger-bar {
     display: block;
@@ -262,8 +247,6 @@ const base = lang === 'es' ? '/es' : '';
   }
 
   @media (min-width: 768px) {
-    .navbar__hamburger {
-      display: none;
-    }
+    .navbar__hamburger { display: none; }
   }
 </style>

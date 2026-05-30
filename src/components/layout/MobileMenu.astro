@@ -12,38 +12,33 @@ interface Props {
 
 const { t, lang, alternateURL } = Astro.props;
 
-const base = lang === 'es' ? '/es' : '';
+const base = import.meta.env.BASE_URL;
+const enURL = lang === 'en' ? base : alternateURL;
+const esURL = lang === 'es' ? `${base}es/` : alternateURL;
+const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-builder`;
 ---
 
 <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
   <div class="mobile-menu__inner">
 
-    <!-- Nav Links verticales -->
     <nav class="mobile-menu__nav">
-      <NavLinks
-        t={t}
-        lang={lang}
-        orientation="vertical"
-        onClickClose={true}
-      />
+      <NavLinks t={t} lang={lang} orientation="vertical" onClickClose={true} />
     </nav>
 
-    <!-- Divisor -->
     <div class="mobile-menu__divider"></div>
 
-    <!-- Idiomas -->
     <div class="mobile-menu__langs">
       <span class="mobile-menu__lang-label">Language</span>
       <div class="mobile-menu__lang-btns">
         
-          href={lang === 'en' ? '/' : alternateURL}
+        <a  href={enURL}
           class:list={['lang-btn', lang === 'en' && 'lang-btn--active']}
           aria-label="Switch to English"
         >
           EN
         </a>
         
-          href={lang === 'es' ? '/es' : alternateURL}
+        <a  href={esURL}
           class:list={['lang-btn', lang === 'es' && 'lang-btn--active']}
           aria-label="Cambiar a Español"
         >
@@ -52,8 +47,7 @@ const base = lang === 'es' ? '/es' : '';
       </div>
     </div>
 
-    <!-- CTA -->
-    <a href={`${base}/#sample-builder`} class="mobile-menu__cta" data-close="true">
+    <a href={ctaHref} class="mobile-menu__cta" data-close="true">
       {t.nav.cta}
     </a>
 
@@ -71,14 +65,10 @@ const base = lang === 'es' ? '/es' : '';
     border-bottom: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
     z-index: 40;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height var(--transition-slow);
   }
 
   .mobile-menu.is-open {
     display: block;
-    max-height: 600px;
   }
 
   .mobile-menu__inner {
@@ -86,10 +76,6 @@ const base = lang === 'es' ? '/es' : '';
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-  }
-
-  .mobile-menu__nav {
-    width: 100%;
   }
 
   .mobile-menu__divider {
@@ -146,7 +132,6 @@ const base = lang === 'es' ? '/es' : '';
     padding: var(--space-3) var(--space-5);
     border-radius: var(--radius-md);
     transition: background-color var(--transition);
-    letter-spacing: 0.03em;
   }
 
   .mobile-menu__cta:hover {
@@ -154,9 +139,7 @@ const base = lang === 'es' ? '/es' : '';
   }
 
   @media (min-width: 768px) {
-    .mobile-menu {
-      display: none !important;
-    }
+    .mobile-menu { display: none !important; }
   }
 </style>
 
@@ -164,18 +147,15 @@ const base = lang === 'es' ? '/es' : '';
   function initMobileMenu() {
     const menu = document.getElementById('mobile-menu');
     const btn = document.getElementById('mobile-menu-btn');
-
     if (!menu || !btn) return;
 
-    // Toggle al hacer click en el botón
     btn.addEventListener('click', () => {
       const isOpen = menu.classList.contains('is-open');
       menu.classList.toggle('is-open', !isOpen);
-      menu.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
-      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      menu.setAttribute('aria-hidden', String(isOpen));
+      btn.setAttribute('aria-expanded', String(!isOpen));
     });
 
-    // Cerrar al hacer click en un link del menú
     menu.querySelectorAll('[data-close="true"]').forEach((el) => {
       el.addEventListener('click', () => {
         menu.classList.remove('is-open');
@@ -184,7 +164,6 @@ const base = lang === 'es' ? '/es' : '';
       });
     });
 
-    // Cerrar al hacer click fuera
     document.addEventListener('click', (e) => {
       const target = e.target as Node;
       if (!menu.contains(target) && !btn.contains(target)) {
@@ -195,6 +174,5 @@ const base = lang === 'es' ? '/es' : '';
     });
   }
 
-  // Inicializar en carga normal y tras View Transitions
   document.addEventListener('astro:page-load', initMobileMenu);
 </script>
