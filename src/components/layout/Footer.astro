@@ -1,8 +1,11 @@
 ---
 // src/components/layout/Footer.astro
-import type { TranslationKeys } from '../../i18n/en';
-import type { Lang } from '../../i18n/utils';
-import NavLinks from '../ui/NavLinks.astro';
+import type { TranslationKeys } from "../../i18n/en";
+import type { Lang } from "../../i18n/utils";
+import NavLinks from "../ui/NavLinks.astro";
+import { Image } from "astro:assets";
+
+import logo from "../../assets/logo.svg";
 
 interface Props {
   t: TranslationKeys;
@@ -15,38 +18,72 @@ const base = import.meta.env.BASE_URL;
 
 <footer class="footer">
   <div class="container">
-
     <!-- Top grid -->
     <div class="footer__grid">
-
       <!-- Col 1: Brand -->
       <div class="footer__brand">
-        <a href={`${base}/`} class="footer__logo" aria-label="Euro Sandwich Panels">
-          <div class="footer__logo-icon">
-            <span class="footer__logo-e">E</span>SP
-          </div>
-          <span class="footer__logo-name">Euro Sandwich Panels</span>
+        <a
+          href={`${base}/`}
+          class="footer__logo"
+          aria-label="Euro Sandwich Panels"
+        >
+          <Image
+            src={logo}
+            alt="Panel sándwich para techo industrial"
+            width={200}
+            height={50}
+            class="footer__logo-img"
+            format="svg"
+            quality={85}
+            loading="eager"
+          />
         </a>
 
         <p class="footer__tagline">{t.footer.tagline}</p>
 
         <div class="footer__socials">
           <a href="#" class="footer__social" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-              <rect x="2" y="9" width="4" height="12"/>
-              <circle cx="4" cy="4" r="2"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+              ></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
             </svg>
           </a>
           <a href="#" class="footer__social" aria-label="X / Twitter">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"
+              ></path>
             </svg>
           </a>
           <a href="#" class="footer__social" aria-label="YouTube">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
-              <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"
+              ></path>
+              <polygon
+                points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
+                fill="white"></polygon>
             </svg>
           </a>
         </div>
@@ -62,13 +99,15 @@ const base = import.meta.env.BASE_URL;
       <div class="footer__col">
         <h4 class="footer__col-title">{t.footer.cols.cores.title}</h4>
         <ul class="footer__links">
-          {t.footer.cols.cores.links.map((link) => (
-            <li>
-              <a href={`${base}${link.href}`} class="footer__link">
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {
+            t.footer.cols.cores.links.map((link) => (
+              <li>
+                <a href={`${base}${link.href}`} class="footer__link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
@@ -76,13 +115,15 @@ const base = import.meta.env.BASE_URL;
       <div class="footer__col">
         <h4 class="footer__col-title">{t.footer.cols.tools.title}</h4>
         <ul class="footer__links">
-          {t.footer.cols.tools.links.map((link) => (
-            <li>
-              <a href={`${base}${link.href}`} class="footer__link">
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {
+            t.footer.cols.tools.links.map((link) => (
+              <li>
+                <a href={`${base}${link.href}`} class="footer__link">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
@@ -92,7 +133,6 @@ const base = import.meta.env.BASE_URL;
         <p class="footer__standards-desc">{t.footer.cols.standards.desc}</p>
         <span class="footer__badge">{t.footer.cols.standards.badge}</span>
       </div>
-
     </div>
 
     <!-- Bottom bar -->
@@ -106,7 +146,6 @@ const base = import.meta.env.BASE_URL;
         <a href="#" class="footer__legal-link">{t.footer.legal.cookies}</a>
       </div>
     </div>
-
   </div>
 </footer>
 
@@ -151,6 +190,12 @@ const base = import.meta.env.BASE_URL;
     align-items: center;
     gap: var(--space-3);
     transition: opacity var(--transition);
+  }
+  .footer__logo-img {
+    display: block;
+    height: 3.5rem;
+    width: auto;
+    filter: brightness(0) invert(1);
   }
 
   .footer__logo:hover {

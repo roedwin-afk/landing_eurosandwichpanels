@@ -1,9 +1,12 @@
 ---
 // src/components/layout/Navbar.astro
-import type { TranslationKeys } from '../../i18n/en';
-import type { Lang } from '../../i18n/utils';
-import NavLinks from '../ui/NavLinks.astro';
-import MobileMenu from './MobileMenu.astro';
+import type { TranslationKeys } from "../../i18n/en";
+import type { Lang } from "../../i18n/utils";
+import NavLinks from "../ui/NavLinks.astro";
+import MobileMenu from "./MobileMenu.astro";
+import { Image } from "astro:assets";
+
+import logo from "../../assets/logo.svg";
 
 interface Props {
   t: TranslationKeys;
@@ -16,24 +19,34 @@ const { t, lang, alternateURL } = Astro.props;
 const base = import.meta.env.BASE_URL; // "/landing_eurosandwichpanels/"
 
 // Logo: raíz del idioma actual
-const logoHref = lang === 'es' ? `${base}es/` : base;
+const logoHref = lang === "es" ? `${base}es/` : base;
 
 // Switcher: el activo apunta a sí mismo, el inactivo apunta al alternate
-const enURL = lang === 'en' ? base : alternateURL;
-const esURL = lang === 'es' ? `${base}es/` : alternateURL;
+const enURL = lang === "en" ? base : alternateURL;
+const esURL = lang === "es" ? `${base}es/` : alternateURL;
 
 // CTA
-const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-builder`;
+const ctaHref = lang === "es" ? `${base}es/#quote` : `${base}#quote`;
 ---
 
 <header class="navbar">
   <div class="container navbar__inner">
-
     <!-- Logo -->
-    <a href={logoHref} class="navbar__logo" aria-label="Euro Sandwich Panels Home">
-      <div class="navbar__logo-icon">
-        <span class="navbar__logo-e">E</span>SP
-      </div>
+    <a
+      href={logoHref}
+      class="navbar__logo"
+      aria-label="Euro Sandwich Panels Home"
+    >
+      <Image
+        src={logo}
+        alt="Panel sándwich para techo industrial"
+        width={200}
+        height={50}
+        class="navbar__logo-img"
+        format="svg"
+        quality={85}
+        loading="eager"
+      />
       <div class="navbar__logo-text">
         <span class="navbar__logo-name">Euro Sandwich Panels</span>
         <span class="navbar__logo-sub">Quality Insulation</span>
@@ -47,20 +60,20 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
 
     <!-- Right side: langs + CTA + hamburger -->
     <div class="navbar__actions">
-
       <!-- Language switcher (desktop) -->
       <div class="navbar__langs">
-        
-        <a  href={enURL}
-          class:list={['navbar__lang', lang === 'en' && 'navbar__lang--active']}
+        <a
+          href={enURL}
+          class:list={["navbar__lang", lang === "en" && "navbar__lang--active"]}
           aria-label="Switch to English"
         >
           EN
         </a>
         <span class="navbar__lang-sep">|</span>
-        
-        <a  href={esURL}
-          class:list={['navbar__lang', lang === 'es' && 'navbar__lang--active']}
+
+        <a
+          href={esURL}
+          class:list={["navbar__lang", lang === "es" && "navbar__lang--active"]}
           aria-label="Cambiar a Español"
         >
           ES
@@ -84,7 +97,6 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
         <span class="navbar__hamburger-bar"></span>
         <span class="navbar__hamburger-bar"></span>
       </button>
-
     </div>
   </div>
 
@@ -118,7 +130,9 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
     transition: opacity var(--transition);
   }
 
-  .navbar__logo:hover { opacity: 0.85; }
+  .navbar__logo:hover {
+    opacity: 0.85;
+  }
 
   .navbar__logo-icon {
     height: 2.5rem;
@@ -134,7 +148,9 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
     flex-shrink: 0;
   }
 
-  .navbar__logo-e { color: var(--color-accent); }
+  .navbar__logo-e {
+    color: var(--color-accent);
+  }
 
   .navbar__logo-name {
     display: block;
@@ -162,7 +178,9 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
   }
 
   @media (min-width: 768px) {
-    .navbar__nav { display: flex; }
+    .navbar__nav {
+      display: flex;
+    }
   }
 
   .navbar__actions {
@@ -179,7 +197,9 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
   }
 
   @media (min-width: 1024px) {
-    .navbar__langs { display: flex; }
+    .navbar__langs {
+      display: flex;
+    }
   }
 
   .navbar__lang {
@@ -191,7 +211,9 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
     transition: all var(--transition);
   }
 
-  .navbar__lang:hover { color: var(--color-primary); }
+  .navbar__lang:hover {
+    color: var(--color-primary);
+  }
 
   .navbar__lang--active {
     background-color: var(--color-primary);
@@ -217,10 +239,14 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
     white-space: nowrap;
   }
 
-  .navbar__cta:hover { background-color: var(--color-accent-hover); }
+  .navbar__cta:hover {
+    background-color: var(--color-accent-hover);
+  }
 
   @media (min-width: 640px) {
-    .navbar__cta { display: block; }
+    .navbar__cta {
+      display: block;
+    }
   }
 
   .navbar__hamburger {
@@ -235,7 +261,9 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
     transition: background-color var(--transition);
   }
 
-  .navbar__hamburger:hover { background-color: var(--color-bg); }
+  .navbar__hamburger:hover {
+    background-color: var(--color-bg);
+  }
 
   .navbar__hamburger-bar {
     display: block;
@@ -247,6 +275,8 @@ const ctaHref = lang === 'es' ? `${base}es/#sample-builder` : `${base}#sample-bu
   }
 
   @media (min-width: 768px) {
-    .navbar__hamburger { display: none; }
+    .navbar__hamburger {
+      display: none;
+    }
   }
 </style>
