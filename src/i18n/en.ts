@@ -336,6 +336,89 @@ export const en = {
       cookies: 'Cookie Settings',
     },
   },
+  applications: {
+  meta: {
+    title: 'Sandwich Panel Applications by Industry | Euro Sandwich Panels',
+    description: 'Discover the right sandwich panel for your industry. Technical recommendations for cold storage, logistics, food processing, offices and agriculture.',
+  },
+  hero: {
+    eyebrow: 'Industry Applications',
+    title: 'The Right Panel for Every Building Type',
+    subtitle: 'Each sector has unique thermal, fire and structural demands. Find the engineered solution that matches your project requirements.',
+  },
+  sectors: {
+    cold: {
+      label: 'Cold Storage',
+      title: 'Cold Storage & Refrigeration Facilities',
+      desc: 'Sub-zero environments demand the highest thermal resistance available. Any thermal bridge or inadequate U-value directly translates into compressor overload, energy waste and product spoilage.',
+      panel: 'PIR Core',
+      thickness: '120 – 200 mm',
+      uvalue: '≤ 0.12 W/m²K',
+      why: 'PIR closed-cell structure virtually eliminates moisture ingress, which is critical in freeze-thaw cycling environments. Its lambda of 0.022 W/mK achieves sub-zero compliance at thinner profiles than any alternative.',
+      specs: [
+        'Continuous vapour barrier eliminates condensation risk',
+        'Stainless steel or food-grade coatings available',
+        'Floor-to-ceiling hermetic joint profiles prevent cold air loss',
+      ],
+    },
+    logistics: {
+      label: 'Logistics',
+      title: 'Logistics & Distribution Centers',
+      desc: 'Large-span warehouses prioritize fast installation, structural efficiency and ambient temperature control. Panel systems must span wide bays without intermediate supports while meeting building regulation U-values.',
+      panel: 'PIR or PUR Core',
+      thickness: '80 – 120 mm',
+      uvalue: '≤ 0.25 W/m²K',
+      why: 'Both PIR and PUR offer the lightweight profiles needed for long-span purlins and fast modular assembly. PIR is preferred when stricter fire codes apply; PUR suits budget-driven ambient warehouses.',
+      specs: [
+        'Spans up to 6m without intermediate support',
+        'Micro-ribbed profiles handle forklift impact loads',
+        'Available in full RAL palette for branding requirements',
+      ],
+    },
+    food: {
+      label: 'Food Industry',
+      title: 'Food Processing & Production Plants',
+      desc: 'Food environments combine sub-zero storage, high-humidity processing zones and strict hygiene regulations. Panels must resist chemical cleaning agents, prevent bacterial growth and meet fire compartmentation rules.',
+      panel: 'PIR Core with hygienic liner',
+      thickness: '100 – 160 mm',
+      uvalue: '≤ 0.18 W/m²K',
+      why: 'PIR closed-cell foam resists water absorption below 1% by volume, preventing bacterial colonisation inside the core. Smooth flat steel liners with sealed joints eliminate crevices where contaminants accumulate.',
+      specs: [
+        'Smooth flat inner liner rated for pressure washing',
+        'Joint profiles sealed with food-safe EPDM gaskets',
+        'Certified for HACCP and BRC storage environments',
+      ],
+    },
+    office: {
+      label: 'Commercial Office',
+      title: 'Commercial Office & Facade Systems',
+      desc: 'Office and commercial envelopes balance aesthetics, acoustic comfort and energy performance. Facade panels must achieve low U-values for BREEAM or LEED compliance while delivering architectural finish quality.',
+      panel: 'Rockwool Core',
+      thickness: '100 – 150 mm',
+      uvalue: '≤ 0.20 W/m²K',
+      why: 'Rockwool mineral fibre provides superior acoustic attenuation (Rw ≥ 32 dB) essential for urban office environments, combined with non-combustible Class A1 fire rating required by most commercial building codes.',
+      specs: [
+        'Class A1 non-combustible — no fire suppression penalty',
+        'Rw ≥ 32 dB acoustic attenuation for open-plan comfort',
+        'PVDF coatings retain colour for 25+ years on facades',
+      ],
+    },
+    agriculture: {
+      label: 'Agriculture',
+      title: 'Agricultural & Rural Buildings',
+      desc: 'Agricultural buildings require durable, cost-effective enclosures that handle humidity, animal waste vapours and wide temperature swings. Long service life with minimal maintenance is the primary driver.',
+      panel: 'PUR Core',
+      thickness: '60 – 100 mm',
+      uvalue: '≤ 0.35 W/m²K',
+      why: 'PUR offers the best cost-per-thermal-unit for ambient agricultural applications where extreme fire ratings are not mandatory. Its moisture rejection characteristics handle the high-humidity conditions typical of livestock and grain storage facilities.',
+      specs: [
+        'Polyester coatings resist ammonia and fertiliser corrosion',
+        'Lightweight panels reduce structural steel requirements',
+        'Fast dry-assembly cuts on-site labour costs significantly',
+      ],
+    },
+  },
+},
 } as const;
 
 export type TranslationKeys = DeepString<typeof en>;

@@ -1,11 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getPageI18n } from '../i18n/utils';
 import Hero from '../components/sections/Hero.astro';
 import Anatomy from '../components/sections/Anatomy.astro';
 import Materials from '../components/sections/Materials.astro';
 import Calculator from '../components/sections/Calculator.astro';
 import Technical from '../components/sections/Technical.astro';
+import { getPageI18n } from '../i18n/utils';
 
 const { lang, t, canonicalURL, alternateURL } = getPageI18n(
   Astro.url,
