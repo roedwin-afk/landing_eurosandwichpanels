@@ -15,9 +15,10 @@ const base = import.meta.env.BASE_URL;
 const langPrefix = lang === 'es' ? `${base}es` : base.replace(/\/$/, '');
 
 const links = [
-  { href: `${langPrefix}/#what-is-it`, label: t.nav.what },
-  { href: `${langPrefix}/#materials`,  label: t.nav.materials },
-  { href: `${langPrefix}/#calculator`, label: t.nav.calculator },
+  { href: `${langPrefix}/applications/`,  label: t.nav.applications },
+  { href: `${langPrefix}/installation/`,  label: t.nav.installation },
+  { href: `${langPrefix}/#calculator`,    label: t.nav.calculator },
+  { href: `${langPrefix}/blog/`,          label: t.nav.blog },
 ];
 ---
 

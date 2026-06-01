@@ -6,6 +6,7 @@ import Anatomy from '../../components/sections/Anatomy.astro';
 import Materials from '../../components/sections/Materials.astro';
 import Calculator from '../../components/sections/Calculator.astro';
 import Technical from '../../components/sections/Technical.astro';
+import Quote from '../../components/sections/Quote.astro';
 
 const { lang, t, canonicalURL, alternateURL } = getPageI18n(
   Astro.url,
@@ -19,4 +20,5 @@ const { lang, t, canonicalURL, alternateURL } = getPageI18n(
   <Materials t={t} />
   <Calculator t={t} lang={lang} />
   <Technical t={t} />
+  <Quote t={t} />
 </Layout>

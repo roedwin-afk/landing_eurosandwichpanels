@@ -1,0 +1,620 @@
+---
+import type { TranslationKeys } from '../../i18n/en';
+import ScrollReveal from '../ui/ScrollReveal.astro';
+
+interface Props {
+  t: TranslationKeys;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="quote" class="quote section">
+  <div class="container">
+
+    <div class="section-header">
+      <ScrollReveal>
+        <span class="section-eyebrow">{t.quote.eyebrow}</span>
+      </ScrollReveal>
+      <ScrollReveal delay={1}>
+        <h2 class="section-title">{t.quote.title}</h2>
+      </ScrollReveal>
+      <ScrollReveal delay={2}>
+        <p class="section-subtitle">{t.quote.subtitle}</p>
+      </ScrollReveal>
+    </div>
+
+    <div class="quote__layout">
+
+      <!-- Left: Configurator -->
+      <ScrollReveal class="quote__configurator">
+
+        <!-- Step 1: Core -->
+        <div class="quote__step">
+          <span class="quote__step-label">{t.quote.step1}</span>
+          <div class="quote__options">
+            {t.quote.cores.map((core, i) => (
+              <label class="quote__option">
+                <input
+                  type="radio"
+                  name="q-core"
+                  value={core.value}
+                  checked={i === 0}
+                />
+                <div class="quote__option-inner">
+                  <span class="quote__option-label">{core.label}</span>
+                  <span class="quote__option-badge">{core.badge}</span>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Step 2: Thickness -->
+        <div class="quote__step">
+          <span class="quote__step-label">{t.quote.step2}</span>
+          <div class="quote__thicknesses">
+            {t.quote.thicknesses.map((th, i) => (
+              <label class="quote__thickness-option">
+                <input
+                  type="radio"
+                  name="q-thickness"
+                  value={th.value}
+                  checked={i === 1}
+                />
+                <div class="quote__thickness-inner">
+                  {th.label}
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Step 3: Color -->
+        <div class="quote__step">
+          <span class="quote__step-label">{t.quote.step3}</span>
+          <div class="quote__colors">
+            {t.quote.colors.map((color, i) => (
+              <label class="quote__color-option">
+                <input
+                  type="radio"
+                  name="q-color"
+                  value={color.value}
+                  checked={i === 0}
+                />
+                <div class="quote__color-inner">
+                  <span class="quote__color-label">{color.label}</span>
+                  <span
+                    class="quote__color-swatch"
+                    style={`background-color: ${color.hex}`}
+                  />
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+      </ScrollReveal>
+
+      <!-- Right: Summary + Form -->
+      <ScrollReveal class="quote__panel" delay={2}>
+
+        <!-- Live preview -->
+        <div class="quote__preview">
+          <span class="quote__preview-label">{t.quote.previewLabel}</span>
+          <div class="quote__preview-visual">
+            <div id="q-preview-color" class="quote__preview-swatch"></div>
+            <div class="quote__preview-info">
+              <span id="q-preview-core"   class="quote__preview-core"></span>
+              <span id="q-preview-thickness" class="quote__preview-thickness"></span>
+              <span id="q-preview-color-label" class="quote__preview-color-label"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="quote__form-wrap">
+          <span class="quote__form-title">{t.quote.formTitle}</span>
+
+          <form id="quote-form" class="quote__form" novalidate>
+
+            <div class="quote__form-row">
+              <input
+                type="number"
+                id="q-area"
+                name="q-area"
+                placeholder={t.quote.formArea}
+                min="1"
+                required
+                class="quote__input"
+              />
+              <select id="q-sector" name="q-sector" class="quote__input quote__select">
+                {t.quote.formSectors.map((s) => (
+                  <option value={s.value}>{s.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <input
+              type="text"
+              id="q-name"
+              placeholder={t.quote.formName}
+              required
+              class="quote__input"
+            />
+            <input
+              type="email"
+              id="q-email"
+              placeholder={t.quote.formEmail}
+              required
+              class="quote__input"
+            />
+            <input
+              type="text"
+              id="q-company"
+              placeholder={t.quote.formCompany}
+              required
+              class="quote__input"
+            />
+            <textarea
+              id="q-notes"
+              placeholder={t.quote.formNotes}
+              rows="3"
+              class="quote__input quote__textarea"
+            ></textarea>
+
+            <div class="quote__form-footer">
+              <span class="quote__hint">{t.quote.hint}</span>
+              <button type="submit" class="quote__submit">
+                {t.quote.formSubmit}
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </ScrollReveal>
+    </div>
+  </div>
+</section>
+
+<!-- Toast -->
+<div id="quote-toast" class="toast" aria-live="polite">
+  <div class="toast__inner">
+    <span id="quote-toast-title" class="toast__title"></span>
+    <span id="quote-toast-body"  class="toast__body"></span>
+  </div>
+</div>
+
+<style>
+  .quote {
+    background-color: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* ── Layout ── */
+  .quote__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    .quote__layout {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  /* ── Configurator ── */
+  .quote__configurator {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  /* ── Step ── */
+  .quote__step-label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  /* ── Core options ── */
+  .quote__options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+
+  .quote__option input { display: none; }
+
+  .quote__option-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .quote__option:hover .quote__option-inner {
+    border-color: var(--color-accent);
+  }
+
+  .quote__option input:checked + .quote__option-inner {
+    border-color: var(--color-primary);
+    background-color: rgba(28, 53, 87, 0.04);
+  }
+
+  .quote__option-label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .quote__option-badge {
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  /* ── Thickness ── */
+  .quote__thicknesses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .quote__thickness-option input { display: none; }
+
+  .quote__thickness-inner {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-steel);
+    cursor: pointer;
+    transition: all var(--transition);
+    background-color: var(--color-bg);
+  }
+
+  .quote__thickness-option:hover .quote__thickness-inner {
+    border-color: var(--color-accent);
+    color: var(--color-primary);
+  }
+
+  .quote__thickness-option input:checked + .quote__thickness-inner {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  /* ── Colors ── */
+  .quote__colors {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+
+  .quote__color-option input { display: none; }
+
+  .quote__color-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-white);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .quote__color-option:hover .quote__color-inner {
+    border-color: var(--color-accent);
+  }
+
+  .quote__color-option input:checked + .quote__color-inner {
+    border-color: var(--color-primary);
+  }
+
+  .quote__color-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .quote__color-swatch {
+    display: block;
+    height: 1.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  /* ── Panel (right) ── */
+  .quote__panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* ── Preview ── */
+  .quote__preview {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .quote__preview-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+  }
+
+  .quote__preview-visual {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .quote__preview-swatch {
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    flex-shrink: 0;
+    transition: background-color var(--transition-slow);
+  }
+
+  .quote__preview-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .quote__preview-core {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .quote__preview-thickness {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .quote__preview-color-label {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  /* ── Form wrap ── */
+  .quote__form-wrap {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .quote__form-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+  }
+
+  /* ── Form ── */
+  .quote__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .quote__form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .quote__input {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg);
+    font-size: var(--text-xs);
+    font-family: inherit;
+    color: var(--color-text);
+    transition: border-color var(--transition);
+  }
+
+  .quote__input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .quote__select {
+    cursor: pointer;
+  }
+
+  .quote__textarea {
+    resize: vertical;
+    min-height: 5rem;
+  }
+
+  /* ── Form footer ── */
+  .quote__form-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-2);
+  }
+
+  @media (min-width: 480px) {
+    .quote__form-footer {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .quote__hint {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .quote__submit {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-lg);
+    letter-spacing: 0.02em;
+    transition: background-color var(--transition);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .quote__submit:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: var(--space-6);
+    right: var(--space-6);
+    z-index: 100;
+    transform: translateY(2rem);
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--transition-slow);
+  }
+
+  .toast.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .toast__inner {
+    background-color: var(--color-primary);
+    border-left: 4px solid var(--color-accent);
+    color: var(--color-white);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-width: 20rem;
+  }
+
+  .toast__title {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .toast__body {
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+  function initQuote() {
+    const form     = document.getElementById('quote-form') as HTMLFormElement | null;
+    const swatchEl = document.getElementById('q-preview-color')        as HTMLElement | null;
+    const coreEl   = document.getElementById('q-preview-core')         as HTMLElement | null;
+    const thickEl  = document.getElementById('q-preview-thickness')    as HTMLElement | null;
+    const colorEl  = document.getElementById('q-preview-color-label')  as HTMLElement | null;
+
+    if (!form) return;
+
+    function getVal(name: string): string {
+      return document.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.value ?? '';
+    }
+
+    function getSelectedHex(): string {
+      const checked = document.querySelector<HTMLInputElement>('input[name="q-color"]:checked');
+      const swatch  = checked?.closest('label')?.querySelector<HTMLElement>('.quote__color-swatch');
+      return swatch?.style.backgroundColor ?? '#EAE6DF';
+    }
+
+    function updatePreview() {
+      const core      = getVal('q-core');
+      const thickness = getVal('q-thickness');
+      const color     = getVal('q-color');
+      const hex       = getSelectedHex();
+
+      if (swatchEl) swatchEl.style.backgroundColor = hex;
+      if (coreEl)   coreEl.textContent   = core;
+      if (thickEl)  thickEl.textContent  = thickness;
+      if (colorEl)  colorEl.textContent  = color;
+    }
+
+    document.querySelectorAll<HTMLInputElement>(
+      'input[name="q-core"], input[name="q-thickness"], input[name="q-color"]'
+    ).forEach((r) => r.addEventListener('change', updatePreview));
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name    = (document.getElementById('q-name')    as HTMLInputElement).value;
+      const company = (document.getElementById('q-company') as HTMLInputElement).value;
+
+      form.reset();
+      updatePreview();
+
+      showToast(
+        'Quote Request Sent',
+        `Our team will contact ${name} at ${company} within 24 hours.`
+      );
+    });
+
+    updatePreview();
+  }
+
+  function showToast(title: string, body: string) {
+    const toast      = document.getElementById('quote-toast');
+    const toastTitle = document.getElementById('quote-toast-title');
+    const toastBody  = document.getElementById('quote-toast-body');
+
+    if (!toast || !toastTitle || !toastBody) return;
+
+    toastTitle.textContent = title;
+    toastBody.textContent  = body;
+    toast.classList.add('is-visible');
+
+    setTimeout(() => toast.classList.remove('is-visible'), 5000);
+  }
+
+  document.addEventListener('astro:page-load', initQuote);
+</script>

@@ -21,14 +21,12 @@ const bt = {
 
 //const base = import.meta.env.BASE_URL;
 import { getPageI18n } from '../../i18n/utils';
+const base = import.meta.env.BASE_URL;
 
 const { lang, t, canonicalURL, alternateURL } = getPageI18n(
   Astro.url,
-  import.meta.env.BASE_URL
+  base
 );
-
-const canonicalURLtest = `${canonicalURL}blog/page/`;
-console.log({ canonicalURL, alternateURL, canonicalURLtest });
 ---
 
 <Layout t={t} lang={lang} canonicalURL={canonicalURL} alternateURL={alternateURL}>
@@ -36,8 +34,8 @@ console.log({ canonicalURL, alternateURL, canonicalURLtest });
     posts={posts}
     currentPage={1}
     totalPages={totalPages}
-    basePath={`${canonicalURL}/page/`}
-    blogBase={`${canonicalURL}/`}
+    basePath={`${base}blog/page/`}
+    blogBase={`${base}blog/`}
     dateLocale={config.locale ?? "en"}
     t={bt}
     locale={config.locale ?? "en"}

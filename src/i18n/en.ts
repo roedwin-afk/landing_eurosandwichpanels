@@ -7,10 +7,14 @@ export const en = {
   },
   nav: {
     what: 'What is it?',
+    menu: 'Menu',
     materials: 'Core Materials',
     calculator: 'Calculator',
     technical: 'Specifications',
-    sample: 'Specimen Box',
+    quote: 'Get a Quote',
+    applications: 'Applications',   // 👈
+    installation: 'Installation',   // 👈
+    blog: 'Blog',
     cta: 'Free Sample Pack',
     langs: {
       en: 'EN',
@@ -228,23 +232,25 @@ export const en = {
       { label: 'Standard Color Coding Standard', value: 'RAL Color Palette' },
     ],
   },
-  sample: {
-    eyebrow: 'Tactile Physical Samples',
-    title: 'Customize Your Free Technical Sample Box',
+  quote: {
+    eyebrow: 'Get a Quote',
+    title: 'Request a Project Quote',
     subtitle:
-      'Verify material finishes firsthand. Select up to three panel core samples and surface color swatches. We will ship them directly to your architectural office.',
-    step1: 'Step 1: Core Type Selection',
-    step2: 'Step 2: Sheet Metal Profile Texture',
-    step3: 'Step 3: External RAL Color Coating',
+      'Configure your panel requirements and submit your project details. Our technical team will respond within 24 hours with a tailored specification and price estimate.',
+    step1: 'Step 1: Core Type',
+    step2: 'Step 2: Panel Thickness',
+    step3: 'Step 3: External Color',
     cores: [
       { value: 'PIR 60mm', label: 'PIR 60mm', badge: 'Ultra-Slim' },
       { value: 'PIR 100mm', label: 'PIR 100mm', badge: 'Recommended' },
       { value: 'Rockwool 120', label: 'Rockwool 120', badge: 'Fireproof' },
     ],
-    finishes: [
-      { value: 'Micro-Ribbed', label: 'Micro-Ribbed', sub: 'Standard' },
-      { value: 'Smooth (Flat)', label: 'Smooth Flat', sub: 'Architectural' },
-      { value: 'Deep Box Rib', label: 'Deep Box Rib', sub: 'Roof Style' },
+    thicknesses: [
+      { value: '60mm', label: '60 mm' },
+      { value: '100mm', label: '100 mm' },
+      { value: '120mm', label: '120 mm' },
+      { value: '160mm', label: '160 mm' },
+      { value: '200mm', label: '200 mm' },
     ],
     colors: [
       { value: 'RAL 9002', label: 'RAL 9002', hex: '#EAE6DF' },
@@ -252,20 +258,31 @@ export const en = {
       { value: 'RAL 7016', label: 'RAL 7016', hex: '#374151' },
       { value: 'RAL 8004', label: 'RAL 8004', hex: '#A15033' },
     ],
-    addBtn: 'Add Sample to My Box',
-    boxTitle: 'Your Technical Sample Box',
-    previewLabel: 'Live Component Preview',
-    emptyNotice: 'No samples selected yet. Add up to three above!',
-    formName: 'Project Manager Name',
-    formEmail: 'Professional Email Address',
-    formCompany: 'Architectural / Construction Company',
-    formSubmit: 'Request Delivery of My Sample Box',
-    hint: 'Click configuration to automatically build preview block.',
+    summaryTitle: 'Your Configuration',
+    summaryEmpty: 'Complete the steps on the left to see your configuration summary.',
+    previewLabel: 'Live Preview',
+    formTitle: 'Project Details',
+    formArea: 'Estimated Area (m²)',
+    formSector: 'Building Sector',
+    formSectors: [
+      { value: 'cold', label: 'Cold Storage' },
+      { value: 'logistics', label: 'Logistics & Warehouse' },
+      { value: 'food', label: 'Food Processing' },
+      { value: 'office', label: 'Commercial Office' },
+      { value: 'agriculture', label: 'Agriculture' },
+      { value: 'other', label: 'Other' },
+    ],
+    formName: 'Full Name',
+    formEmail: 'Professional Email',
+    formCompany: 'Company Name',
+    formNotes: 'Additional project notes (optional)',
+    formSubmit: 'Request Quote',
+    hint: 'No commitment required. We respond within 24 hours.',
     toasts: {
-      added: { title: 'Sample Configuration Added', body: 'Slot successfully initialized inside your virtual box.' },
-      full: { title: 'Box Capacity Full', body: 'Your technical specimen box can hold a maximum of 3 configurations.' },
-      removed: { title: 'Sample Removed', body: 'Slot liberated in sample sequence builder.' },
-      submitted: { title: 'Order Placed Successfully', body: 'Shipment initialized. Check confirmation at your email.' },
+      submitted: {
+        title: 'Quote Request Sent',
+        body: 'Our team will contact you within 24 hours with your tailored estimate.',
+      },
     },
   },
   faq: {
@@ -337,88 +354,201 @@ export const en = {
     },
   },
   applications: {
-  meta: {
-    title: 'Sandwich Panel Applications by Industry | Euro Sandwich Panels',
-    description: 'Discover the right sandwich panel for your industry. Technical recommendations for cold storage, logistics, food processing, offices and agriculture.',
+    meta: {
+      title: 'Sandwich Panel Applications by Industry | Euro Sandwich Panels',
+      description: 'Discover the right sandwich panel for your industry. Technical recommendations for cold storage, logistics, food processing, offices and agriculture.',
+    },
+    hero: {
+      eyebrow: 'Industry Applications',
+      title: 'The Right Panel for Every Building Type',
+      subtitle: 'Each sector has unique thermal, fire and structural demands. Find the engineered solution that matches your project requirements.',
+    },
+    sectors: {
+      cold: {
+        label: 'Cold Storage',
+        title: 'Cold Storage & Refrigeration Facilities',
+        desc: 'Sub-zero environments demand the highest thermal resistance available. Any thermal bridge or inadequate U-value directly translates into compressor overload, energy waste and product spoilage.',
+        panel: 'PIR Core',
+        thickness: '120 – 200 mm',
+        uvalue: '≤ 0.12 W/m²K',
+        why: 'PIR closed-cell structure virtually eliminates moisture ingress, which is critical in freeze-thaw cycling environments. Its lambda of 0.022 W/mK achieves sub-zero compliance at thinner profiles than any alternative.',
+        specs: [
+          'Continuous vapour barrier eliminates condensation risk',
+          'Stainless steel or food-grade coatings available',
+          'Floor-to-ceiling hermetic joint profiles prevent cold air loss',
+        ],
+      },
+      logistics: {
+        label: 'Logistics',
+        title: 'Logistics & Distribution Centers',
+        desc: 'Large-span warehouses prioritize fast installation, structural efficiency and ambient temperature control. Panel systems must span wide bays without intermediate supports while meeting building regulation U-values.',
+        panel: 'PIR or PUR Core',
+        thickness: '80 – 120 mm',
+        uvalue: '≤ 0.25 W/m²K',
+        why: 'Both PIR and PUR offer the lightweight profiles needed for long-span purlins and fast modular assembly. PIR is preferred when stricter fire codes apply; PUR suits budget-driven ambient warehouses.',
+        specs: [
+          'Spans up to 6m without intermediate support',
+          'Micro-ribbed profiles handle forklift impact loads',
+          'Available in full RAL palette for branding requirements',
+        ],
+      },
+      food: {
+        label: 'Food Industry',
+        title: 'Food Processing & Production Plants',
+        desc: 'Food environments combine sub-zero storage, high-humidity processing zones and strict hygiene regulations. Panels must resist chemical cleaning agents, prevent bacterial growth and meet fire compartmentation rules.',
+        panel: 'PIR Core with hygienic liner',
+        thickness: '100 – 160 mm',
+        uvalue: '≤ 0.18 W/m²K',
+        why: 'PIR closed-cell foam resists water absorption below 1% by volume, preventing bacterial colonisation inside the core. Smooth flat steel liners with sealed joints eliminate crevices where contaminants accumulate.',
+        specs: [
+          'Smooth flat inner liner rated for pressure washing',
+          'Joint profiles sealed with food-safe EPDM gaskets',
+          'Certified for HACCP and BRC storage environments',
+        ],
+      },
+      office: {
+        label: 'Commercial Office',
+        title: 'Commercial Office & Facade Systems',
+        desc: 'Office and commercial envelopes balance aesthetics, acoustic comfort and energy performance. Facade panels must achieve low U-values for BREEAM or LEED compliance while delivering architectural finish quality.',
+        panel: 'Rockwool Core',
+        thickness: '100 – 150 mm',
+        uvalue: '≤ 0.20 W/m²K',
+        why: 'Rockwool mineral fibre provides superior acoustic attenuation (Rw ≥ 32 dB) essential for urban office environments, combined with non-combustible Class A1 fire rating required by most commercial building codes.',
+        specs: [
+          'Class A1 non-combustible — no fire suppression penalty',
+          'Rw ≥ 32 dB acoustic attenuation for open-plan comfort',
+          'PVDF coatings retain colour for 25+ years on facades',
+        ],
+      },
+      agriculture: {
+        label: 'Agriculture',
+        title: 'Agricultural & Rural Buildings',
+        desc: 'Agricultural buildings require durable, cost-effective enclosures that handle humidity, animal waste vapours and wide temperature swings. Long service life with minimal maintenance is the primary driver.',
+        panel: 'PUR Core',
+        thickness: '60 – 100 mm',
+        uvalue: '≤ 0.35 W/m²K',
+        why: 'PUR offers the best cost-per-thermal-unit for ambient agricultural applications where extreme fire ratings are not mandatory. Its moisture rejection characteristics handle the high-humidity conditions typical of livestock and grain storage facilities.',
+        specs: [
+          'Polyester coatings resist ammonia and fertiliser corrosion',
+          'Lightweight panels reduce structural steel requirements',
+          'Fast dry-assembly cuts on-site labour costs significantly',
+        ],
+      },
+    },
   },
-  hero: {
-    eyebrow: 'Industry Applications',
-    title: 'The Right Panel for Every Building Type',
-    subtitle: 'Each sector has unique thermal, fire and structural demands. Find the engineered solution that matches your project requirements.',
+  installation: {
+    meta: {
+      title: 'Sandwich Panel Installation Guide | Euro Sandwich Panels',
+      description: 'Step-by-step technical guide for installing insulated sandwich panels. Joint details, common errors, tools required and maintenance tips.',
+    },
+    hero: {
+      eyebrow: 'Installation Guide',
+      title: 'How to Install Sandwich Panels Correctly',
+      subtitle: 'A correct installation preserves the thermal, structural and fire performance engineered into every panel. Follow this technical sequence to avoid the most common on-site errors.',
+    },
+    // Cada step es una etapa del proceso. Se muestran en timeline.
+    // connector: texto que aparece entre steps en el timeline horizontal
+    steps: [
+      {
+        number: '01',
+        title: 'Site Preparation & Structural Check',
+        desc: 'Verify that the supporting structure — purlins, rails or concrete slab — meets the deflection and bearing capacity requirements specified in the panel load tables. Any misalignment exceeding 5mm per 3m span must be corrected before panel installation begins.',
+        details: [
+          'Check purlin alignment with a laser level across the full span',
+          'Confirm steel support surface is clean, dry and free of mill scale',
+          'Verify fixing centres match the panel span table for the wind load zone',
+        ],
+        warning: 'Never install panels on a structure that has not been signed off by a structural engineer.',
+      },
+      {
+        number: '02',
+        title: 'Panel Handling & Storage',
+        desc: 'Improper handling is the leading cause of surface damage before installation. Panels must be lifted from both ends simultaneously using a spreader beam. Never drag panels across each other or allow point loads on the steel skin.',
+        details: [
+          'Store panels flat on level bearers, never on edge',
+          'Keep protective film on until immediately before installation',
+          'Limit stack height to 2.5m to prevent core compression',
+        ],
+        warning: 'Protective film left on after installation traps UV heat and permanently bonds to the coating.',
+      },
+      {
+        number: '03',
+        title: 'First Panel Positioning',
+        desc: 'The first panel sets the reference line for the entire elevation. Position it plumb and square using string lines on both axes. Any error at this stage is multiplied across every subsequent panel in the run.',
+        details: [
+          'Start from a fixed reference corner — never from an opening',
+          'Use temporary clamps to hold position before final fixing',
+          'Confirm panel is perpendicular to the structural grid before drilling',
+        ],
+        warning: 'A 2mm error on the first panel can create a 20mm misalignment by panel 10.',
+      },
+      {
+        number: '04',
+        title: 'Joint Assembly & Sealing',
+        desc: 'The male-female tongue-and-groove joint is the thermal and structural heart of the panel system. The joint must be engaged fully along its entire length before fixings are applied. Partial engagement creates thermal bridges and allows water ingress.',
+        details: [
+          'Apply EPDM compression seal to the female groove before engagement',
+          'Drive joint home with a rubber mallet — never a steel hammer',
+          'Check joint is fully closed with a feeler gauge before fixing',
+        ],
+        warning: 'Gap at joint exceeding 0.5mm voids the thermal certification of the assembly.',
+      },
+      {
+        number: '05',
+        title: 'Fixing & Fastener Torque',
+        desc: 'Self-drilling fasteners must penetrate the supporting steel by a minimum of 20mm. Over-torquing compresses the panel skin and creates a thermal bridge at every fixing point. Under-torquing allows uplift under wind load.',
+        details: [
+          'Use manufacturer-specified fastener type for the support material',
+          'Set torque driver to 4–6 Nm for standard 0.5mm steel skin panels',
+          'Apply neoprene-bonded washers to all exposed fixings',
+        ],
+        warning: 'Never use bare steel fasteners on coastal or high-humidity sites — use stainless or hot-dip galvanised.',
+      },
+      {
+        number: '06',
+        title: 'Flashing, Trim & Final Inspection',
+        desc: 'Flashings seal all panel terminations — eaves, verges, corners and openings. They are the last line of defence against wind-driven rain and must be fixed with sufficient laps and sealed with compatible sealant.',
+        details: [
+          'Minimum 150mm flashing lap at all horizontal joints',
+          'Apply polyurethane sealant to all flashing-to-panel interfaces',
+          'Inspect every joint and fixing from inside for light gaps before handover',
+        ],
+        warning: 'Unsealed flashing terminations account for over 60% of post-installation water ingress complaints.',
+      },
+    ],
+    // Errores comunes — sección adicional debajo del timeline
+    errors: {
+      eyebrow: 'Common Mistakes',
+      title: 'What Goes Wrong on Site',
+      subtitle: 'These are the six most reported installation errors and how to avoid them.',
+      items: [
+        {
+          title: 'Leaving protective film on after installation',
+          desc: 'UV heat builds under the film and permanently fuses it to the coating, requiring mechanical removal that damages the surface.',
+        },
+        {
+          title: 'Misaligned first panel',
+          desc: 'Errors compound across the run. A misaligned start creates gaps, joint failures and aesthetic defects that are expensive to correct.',
+        },
+        {
+          title: 'Over-torqued fasteners',
+          desc: 'Dimpling the steel skin creates a direct thermal bridge at every fixing point, degrading the certified U-value of the assembly.',
+        },
+        {
+          title: 'Incomplete joint engagement',
+          desc: 'Partial tongue-and-groove engagement allows air movement, moisture ingress and reduces the shear strength of the panel system.',
+        },
+        {
+          title: 'Wrong fastener specification',
+          desc: 'Using carbon steel fasteners in coastal environments causes rust bleed that stains the facade and corrodes the panel skin from the fixing point outward.',
+        },
+        {
+          title: 'Unsealed flashing laps',
+          desc: 'Wind-driven rain exploits any unsealed termination. Most post-installation water ingress originates at flashings, not at panel joints.',
+        },
+      ],
+    },
   },
-  sectors: {
-    cold: {
-      label: 'Cold Storage',
-      title: 'Cold Storage & Refrigeration Facilities',
-      desc: 'Sub-zero environments demand the highest thermal resistance available. Any thermal bridge or inadequate U-value directly translates into compressor overload, energy waste and product spoilage.',
-      panel: 'PIR Core',
-      thickness: '120 – 200 mm',
-      uvalue: '≤ 0.12 W/m²K',
-      why: 'PIR closed-cell structure virtually eliminates moisture ingress, which is critical in freeze-thaw cycling environments. Its lambda of 0.022 W/mK achieves sub-zero compliance at thinner profiles than any alternative.',
-      specs: [
-        'Continuous vapour barrier eliminates condensation risk',
-        'Stainless steel or food-grade coatings available',
-        'Floor-to-ceiling hermetic joint profiles prevent cold air loss',
-      ],
-    },
-    logistics: {
-      label: 'Logistics',
-      title: 'Logistics & Distribution Centers',
-      desc: 'Large-span warehouses prioritize fast installation, structural efficiency and ambient temperature control. Panel systems must span wide bays without intermediate supports while meeting building regulation U-values.',
-      panel: 'PIR or PUR Core',
-      thickness: '80 – 120 mm',
-      uvalue: '≤ 0.25 W/m²K',
-      why: 'Both PIR and PUR offer the lightweight profiles needed for long-span purlins and fast modular assembly. PIR is preferred when stricter fire codes apply; PUR suits budget-driven ambient warehouses.',
-      specs: [
-        'Spans up to 6m without intermediate support',
-        'Micro-ribbed profiles handle forklift impact loads',
-        'Available in full RAL palette for branding requirements',
-      ],
-    },
-    food: {
-      label: 'Food Industry',
-      title: 'Food Processing & Production Plants',
-      desc: 'Food environments combine sub-zero storage, high-humidity processing zones and strict hygiene regulations. Panels must resist chemical cleaning agents, prevent bacterial growth and meet fire compartmentation rules.',
-      panel: 'PIR Core with hygienic liner',
-      thickness: '100 – 160 mm',
-      uvalue: '≤ 0.18 W/m²K',
-      why: 'PIR closed-cell foam resists water absorption below 1% by volume, preventing bacterial colonisation inside the core. Smooth flat steel liners with sealed joints eliminate crevices where contaminants accumulate.',
-      specs: [
-        'Smooth flat inner liner rated for pressure washing',
-        'Joint profiles sealed with food-safe EPDM gaskets',
-        'Certified for HACCP and BRC storage environments',
-      ],
-    },
-    office: {
-      label: 'Commercial Office',
-      title: 'Commercial Office & Facade Systems',
-      desc: 'Office and commercial envelopes balance aesthetics, acoustic comfort and energy performance. Facade panels must achieve low U-values for BREEAM or LEED compliance while delivering architectural finish quality.',
-      panel: 'Rockwool Core',
-      thickness: '100 – 150 mm',
-      uvalue: '≤ 0.20 W/m²K',
-      why: 'Rockwool mineral fibre provides superior acoustic attenuation (Rw ≥ 32 dB) essential for urban office environments, combined with non-combustible Class A1 fire rating required by most commercial building codes.',
-      specs: [
-        'Class A1 non-combustible — no fire suppression penalty',
-        'Rw ≥ 32 dB acoustic attenuation for open-plan comfort',
-        'PVDF coatings retain colour for 25+ years on facades',
-      ],
-    },
-    agriculture: {
-      label: 'Agriculture',
-      title: 'Agricultural & Rural Buildings',
-      desc: 'Agricultural buildings require durable, cost-effective enclosures that handle humidity, animal waste vapours and wide temperature swings. Long service life with minimal maintenance is the primary driver.',
-      panel: 'PUR Core',
-      thickness: '60 – 100 mm',
-      uvalue: '≤ 0.35 W/m²K',
-      why: 'PUR offers the best cost-per-thermal-unit for ambient agricultural applications where extreme fire ratings are not mandatory. Its moisture rejection characteristics handle the high-humidity conditions typical of livestock and grain storage facilities.',
-      specs: [
-        'Polyester coatings resist ammonia and fertiliser corrosion',
-        'Lightweight panels reduce structural steel requirements',
-        'Fast dry-assembly cuts on-site labour costs significantly',
-      ],
-    },
-  },
-},
 } as const;
 
 export type TranslationKeys = DeepString<typeof en>;
