@@ -16,6 +16,7 @@ export const en = {
     installation: 'Installation',   // 👈
     blog: 'Blog',
     cta: 'Free Sample Pack',
+    faq: 'FAQ',
     langs: {
       en: 'EN',
       es: 'ES',
@@ -286,38 +287,82 @@ export const en = {
     },
   },
   faq: {
-    eyebrow: 'Educational Resources',
-    title: 'Frequently Asked Engineering Questions',
-    subtitle: 'Crucial structural, chemical, and building science fundamentals simplified for project planners.',
+    meta: {
+      title: 'Sandwich Panel FAQ | Euro Sandwich Panels – PIR, PUR & Rockwool Guide',
+      description:
+        'Expert answers to the most common questions about insulated sandwich panels: U-values, fire ratings, EN 14509, PIR vs Rockwool, installation, and procurement.',
+    },
+    hero: {
+      eyebrow: 'Technical Knowledge Base',
+      title: 'Frequently Asked Questions',
+      subtitle:
+        'Clear, specification-grade answers to the questions engineers, contractors, and procurement managers ask most about insulated sandwich panels.',
+    },
     items: [
+      // ── THERMAL ──────────────────────────────────────────────────────────
       {
-        q: 'What is the difference between PIR and Rockwool cores?',
-        a: [
-          'PIR (Polyisocyanurate) is a lightweight closed-cell foam with remarkable thermal performance. With a lambda value of roughly 0.022 W/mK, you need thinner profiles to hit environmental compliance. It is ideal for general warehousing, commercial facades, and refrigeration systems.',
-          'Rockwool (Mineral Wool) is made from volcanic mineral materials. It is physically heavier and has a higher thermal conductivity (approx. 0.038 W/mK). However, Rockwool is completely non-combustible (Class A1), making it the primary engineering option for fire division barriers, high-safety assembly structures, and loud production centers requiring extreme acoustic isolation.',
-        ],
+        q: 'What U-value do sandwich panels achieve, and how is it calculated?',
+        a: 'Sandwich panels achieve U-values between 0.10 and 0.50 W/m²K depending on core material and thickness. The U-value is calculated as U = 1 / (Rsi + d/λ + Rse), where d is core thickness in metres, λ is the core thermal conductivity (0.022 W/mK for PIR, 0.038 W/mK for Rockwool), and surface resistances Rsi = 0.13 and Rse = 0.04 m²K/W per ISO 6946. A 100mm PIR panel yields approximately U = 0.21 W/m²K. Use our U-Value Calculator to compute the exact specification for your project climate zone.',
       },
       {
-        q: 'How is the thermal U-value of a sandwich panel calculated?',
-        a: [
-          'The overall heat transfer coefficient (U-value) measures how much heat escapes through a structural square meter per degree of temperature difference.',
-          'Formula: U = 1 / (R_internal_surface + R_core_insulation + R_external_surface)',
-          'Because steel skins offer negligible thermal resistance, the computation matches the core insulation thickness (meters) divided by its specific Lambda value. Example: U = 1 / (0.13 + (0.10 / 0.022) + 0.04) ≈ 0.21 W/m²K',
-        ],
+        q: 'What thickness of PIR sandwich panel do I need for a cold storage facility?',
+        a: 'Sub-zero cold rooms operating below −18 °C typically require 150–200 mm PIR panels (U ≤ 0.12 W/m²K). Positive-temperature chillers (0–8 °C) generally use 100–120 mm PIR (U ≤ 0.18 W/m²K). These thicknesses prevent condensation cycling on the cold face and minimise compressor overload. The exact specification depends on internal setpoint, external ambient temperature, and building area; our technical team can provide a full energy load calculation on request.',
       },
       {
-        q: 'Are Euro Sandwich Panels certified under European standards?',
-        a: [
-          'Absolutely. European sandwich panels must strictly adhere to the standard EN 14509. This standard dictates structural testing criteria, wind resistance tolerances, load capacity profiles, weathering behaviors, water penetration safety rules, and strict combustion performance ratings.',
-        ],
+        q: 'How long does the thermal performance of sandwich panels last?',
+        a: 'High-quality PIR and PUR sandwich panels maintain ≥ 90% of their initial thermal resistance for 40 to 50 years when installed correctly. This is achieved through diffusion-tight galvanised steel facings that retain the low-conductivity blowing gases inside closed cells over time. Rockwool panels have indefinite thermal stability because mineral fibre conductivity does not degrade with age. Independent long-term aging tests are conducted under EN 14509 Annex D.',
+      },
+      // ── FIRE ─────────────────────────────────────────────────────────────
+      {
+        q: 'What fire rating does a sandwich panel have? PIR vs Rockwool vs PUR.',
+        a: 'Fire reaction classes under EN 13501-1 are: Rockwool core — Class A1 or A2-s1, d0 (non-combustible, zero flaming droplets); PIR core — Class B-s1, d0 (hardly flammable, zero droplets); PUR core — Class C-s2, d0 (limited combustibility, moderate smoke). For fire compartmentation walls, fire division barriers, and buildings with an occupancy load requiring EI 60/90/120 ratings, Rockwool is the mandatory engineering choice. PIR satisfies most warehouse, logistics, and commercial facade building codes.',
       },
       {
-        q: 'How long do insulated sandwich panels last in extreme conditions?',
-        a: [
-          'High-quality architectural panels maintain structural and thermal performance standards for 40 to 50+ years. High-durability exterior steel coatings (such as Polyurethane with Polyamide beads - PURAL) resist corrosion from marine environments, acidic elements, and intensive ultraviolet exposure.',
-        ],
+        q: 'Can sandwich panels be used as fire compartmentation barriers?',
+        a: 'Yes, but only Rockwool-core panels with a Class A1 or A2 rating are suitable for fire compartmentation (EI-rated assemblies). The panel system — including fixings, joints, and interface details — must be tested as a complete assembly under EN 1365 or EN 1364 to achieve the required EI (Integrity and Insulation) classification. PIR and PUR core panels must not be specified for fire walls without a full assembly fire test certificate.',
+      },
+      // ── STANDARDS ────────────────────────────────────────────────────────
+      {
+        q: 'What does EN 14509 certification mean for sandwich panels?',
+        a: 'EN 14509 is the European harmonised product standard for double-skin metal-faced insulating sandwich panels. It mandates factory production control, CE marking, and third-party testing across: structural load tables (wind, snow, point loads), thermal transmittance (U-value), reaction to fire, water tightness, and dimensional tolerances. Panels bearing a CE mark under EN 14509 provide a Declaration of Performance that can be submitted directly for building permit compliance in EU and EEA countries. Always request the current DoP document from your supplier.',
+      },
+      {
+        q: 'Are sandwich panels suitable for BREEAM or LEED certified buildings?',
+        a: 'Yes. PIR and Rockwool core panels can contribute credits in BREEAM (Energy, Materials, Health & Wellbeing) and LEED (Energy & Atmosphere, Indoor Environmental Quality) schemes. PIR panels with zero-ODP and low-GWP blowing agents qualify for Materials credits. Rockwool mineral core contains high percentages of recycled content. Specific credit allocation depends on the applicable scheme version and assessor verification; request Environmental Product Declarations (EPDs) from your supplier for documentation.',
+      },
+      // ── MATERIALS ────────────────────────────────────────────────────────
+      {
+        q: 'What is the difference between PIR and PUR core sandwich panels?',
+        a: 'PIR (Polyisocyanurate) and PUR (Polyurethane) are both closed-cell rigid foam cores, but PIR undergoes additional crosslinking that produces a higher char residue on exposure to flame, improving its fire performance from Class C (PUR) to Class B (PIR). PIR also achieves a slightly lower lambda value (0.022 vs 0.024 W/mK), meaning thinner profiles for the same U-value. For most commercial and industrial applications in regulated markets, PIR has largely replaced PUR. PUR remains cost-effective for ambient agricultural and budget warehouse projects where strict fire codes do not apply.',
+      },
+      {
+        q: 'What steel facing coatings are available and which should I specify for coastal sites?',
+        a: 'Standard coating systems from innermost to most durable are: Polyester (PE) 25 µm — general interior use; High-Durability Polyester (HDP) 35 µm — standard exterior; PVDF 27 µm — premium UV and chemical resistance; PURAL (Polyurethane + Polyamide beads) 50 µm — highest impact and scratch resistance. For marine or coastal sites within 1–5 km of saltwater, specify either PVDF or PURAL with a minimum Z275 galvanised base steel (275 g/m² zinc coating). Stainless steel facings are available for aggressive food processing and pharmaceutical environments.',
+      },
+      // ── INSTALLATION ─────────────────────────────────────────────────────
+      {
+        q: 'How are sandwich panels fixed to the supporting structure?',
+        a: "Panels are fixed with self-drilling fasteners that penetrate the supporting steel structure (purlins, rails, or girts) by a minimum of 20 mm. Fasteners are driven at the joint rib for concealed fixing or through the panel face for exposed fixing. Torque must be set to 4–6 Nm to prevent skin dimpling, which would create thermal bridges at each fixing point. Neoprene-bonded stainless washers are mandatory on all exposed fixings. Fixing centres are derived from the manufacturer's span tables for the design wind uplift zone.",
+      },
+      {
+        q: 'What are the most common installation errors and how do I avoid them?',
+        a: 'The six most reported errors are: (1) leaving protective film on after installation — UV heat fuses it permanently to the coating; (2) misaligning the first panel — errors compound across the elevation; (3) over-torquing fasteners — dimples the skin and creates thermal bridges; (4) incomplete tongue-and-groove engagement — allows air infiltration and moisture ingress; (5) using carbon steel fasteners on coastal sites — causes rust bleed and corrosion spread; (6) unsealed flashing laps — over 60% of post-installation water ingress originates at flashings. See our full Step-by-Step Installation Guide for corrective procedures.',
+      },
+      // ── PROCUREMENT ──────────────────────────────────────────────────────
+      {
+        q: 'How do I request a technical quote for a sandwich panel project?',
+        a: 'To receive an accurate specification and price estimate, provide: (1) panel application (wall / roof / cold room); (2) core material preference; (3) required U-value or minimum thickness; (4) total area in m²; (5) building sector and location. Use our online Quote Configurator for same-day indicative pricing, or contact our technical team directly for complex projects requiring structural load verification or custom coating specifications. We respond to all enquiries within 24 hours.',
       },
     ],
+    cta: {
+      eyebrow: 'Ready to Specify?',
+      title: 'Configure Your Panel Requirements',
+      body: 'Use our interactive Quote Configurator to select core type, thickness, and color, then submit your project details for a tailored estimate within 24 hours.',
+      btn: 'Get a Quote',
+      href: '/#quote',
+      secondary: 'Explore Applications',
+      secondaryHref: '/applications/',
+    },
   },
   footer: {
     tagline: 'European Quality Insulation Solutions. Educational resources, structural performance catalogs, and technical parameters dedicated to building envelopes.',

@@ -1,35 +1,69 @@
 ---
-import type { TranslationKeys } from '../../i18n/en';
-import type { Lang } from '../../i18n/utils';
+import type { TranslationKeys } from "../../i18n/en";
+import type { Lang } from "../../i18n/utils";
 
 interface Props {
   t: TranslationKeys;
   lang: Lang;
-  orientation?: 'horizontal' | 'vertical';
+  orientation?: "horizontal" | "vertical";
   onClickClose?: boolean;
 }
 
-const { t, lang, orientation = 'horizontal', onClickClose = false } = Astro.props;
+const {
+  t,
+  lang,
+  orientation = "horizontal",
+  onClickClose = false,
+} = Astro.props;
 
 const base = import.meta.env.BASE_URL;
-const langPrefix = lang === 'es' ? `${base}es` : base.replace(/\/$/, '');
+const langPrefix = lang === "es" ? `${base}es` : base.replace(/\/$/, "");
+
+// Pathname actual (sin trailing slash para comparación uniforme)
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 const links = [
-  { href: `${langPrefix}/applications/`,  label: t.nav.applications },
-  { href: `${langPrefix}/installation/`,  label: t.nav.installation },
-  { href: `${langPrefix}/#calculator`,    label: t.nav.calculator },
-  { href: `${langPrefix}/blog/`,          label: t.nav.blog },
+  { href: `${langPrefix}/applications/`, label: t.nav.applications },
+  { href: `${langPrefix}/installation/`, label: t.nav.installation },
+  {
+    href: `${langPrefix}/#calculator`,
+    label: t.nav.calculator,
+    section: "calculator",
+  },
+  { href: `${langPrefix}/blog/`, label: t.nav.blog },
+  { href: `${langPrefix}/faq/`, label: t.nav.faq },
 ];
+
+// Función para determinar si el link es activo
+function isActive(href: string): boolean {
+  const hrefPath = href.split("#")[0].replace(/\/$/, "") || "/";
+  return currentPath === hrefPath;
+}
 ---
 
-<ul class:list={['nav-links', orientation === 'vertical' ? 'nav-links--vertical' : 'nav-links--horizontal']}>
-  {links.map((link) => (
-    <li>
-      <a href={link.href} class="nav-link" data-close={onClickClose ? 'true' : undefined}>
-        {link.label}
-      </a>
-    </li>
-  ))}
+<ul
+  class:list={[
+    "nav-links",
+    orientation === "vertical"
+      ? "nav-links--vertical"
+      : "nav-links--horizontal",
+  ]}
+>
+  {
+    links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          class:list={["nav-link", { "nav-link--active": isActive(link.href) }]}
+          aria-current={isActive(link.href) ? "page" : undefined}
+          data-section={link.section ?? undefined}
+          data-close={onClickClose ? "true" : undefined}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))
+  }
 </ul>
 
 <style>
@@ -45,7 +79,9 @@ const links = [
     gap: var(--space-2);
   }
 
-  .nav-links--horizontal { flex-direction: row; }
+  .nav-links--horizontal {
+    flex-direction: row;
+  }
 
   .nav-link {
     font-size: var(--text-sm);
@@ -57,7 +93,7 @@ const links = [
   }
 
   .nav-link::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -2px;
     left: 0;
@@ -67,8 +103,12 @@ const links = [
     transition: width var(--transition);
   }
 
-  .nav-link:hover { color: var(--color-primary); }
-  .nav-link:hover::after { width: 100%; }
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
 
   .nav-links--vertical .nav-link {
     font-size: var(--text-base);
@@ -79,6 +119,24 @@ const links = [
     border-radius: var(--radius-md);
   }
 
-  .nav-links--vertical .nav-link:hover { background-color: var(--color-bg); }
-  .nav-links--vertical .nav-link::after { display: none; }
+  .nav-links--vertical .nav-link:hover {
+    background-color: var(--color-bg);
+  }
+  .nav-links--vertical .nav-link::after {
+    display: none;
+  }
+
+  .nav-link--active {
+    color: var(--color-primary);
+  }
+
+  .nav-link--active::after {
+    width: 100%;
+  }
+
+  /* Vertical */
+  .nav-links--vertical .nav-link--active {
+    background-color: var(--color-bg);
+    color: var(--color-primary);
+  }
 </style>

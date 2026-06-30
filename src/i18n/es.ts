@@ -18,6 +18,7 @@ export const es: TranslationKeys = {
     installation: 'Instalación',    // 👈
     blog: 'Blog',
     cta: 'Muestra Gratis',
+    faq: 'FAQ',
     langs: {
       en: 'EN',
       es: 'ES',
@@ -287,39 +288,92 @@ export const es: TranslationKeys = {
       },
     },
   },
+  // ─────────────────────────────────────────────────────────────────────────────
+// REPLACE the existing `faq` block in src/i18n/es.ts with this content.
+// Also add `faq: 'FAQ'` to the `nav` object.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Inside nav: { ... } add:
+//   faq: 'FAQ',
+
+// ─── faq section ─────────────────────────────────────────────────────────────
   faq: {
-    eyebrow: 'Recursos Educativos',
-    title: 'Preguntas Frecuentes de Ingeniería',
-    subtitle: 'Fundamentos estructurales, químicos y de ciencias de la construcción simplificados para planificadores de proyectos.',
+    meta: {
+      title: 'Preguntas Frecuentes sobre Paneles Sándwich | Euro Sandwich Panels',
+      description:
+        'Respuestas técnicas a las preguntas más frecuentes sobre paneles sándwich aislantes: U-values, clasificación al fuego, EN 14509, PIR vs Rockwool, instalación y contratación.',
+    },
+    hero: {
+      eyebrow: 'Base de Conocimiento Técnico',
+      title: 'Preguntas Frecuentes',
+      subtitle:
+        'Respuestas claras y con especificaciones técnicas a las preguntas que más hacen ingenieros, constructores y responsables de compras sobre paneles sándwich aislantes.',
+    },
     items: [
+      // ── TÉRMICO ──────────────────────────────────────────────────────────
       {
-        q: '¿Cuál es la diferencia entre los núcleos PIR y Rockwool?',
-        a: [
-          'El PIR (Poliisocianurato) es una espuma de celda cerrada ligera con un rendimiento térmico notable. Con un valor lambda de aproximadamente 0,022 W/mK, necesitas perfiles más delgados para alcanzar el cumplimiento ambiental. Es ideal para almacenes generales, fachadas comerciales y sistemas de refrigeración.',
-          'La Lana de Roca (Mineral Wool) está fabricada con materiales minerales volcánicos. Es físicamente más pesada y tiene una conductividad térmica más alta (aprox. 0,038 W/mK). Sin embargo, la Lana de Roca es completamente no combustible (Clase A1), lo que la convierte en la opción de ingeniería principal para barreras de división contra incendios.',
-        ],
+        q: '¿Qué valor U alcanzan los paneles sándwich y cómo se calcula?',
+        a: 'Los paneles sándwich logran valores U entre 0,10 y 0,50 W/m²K según el material del núcleo y el espesor. El cálculo es U = 1 / (Rsi + d/λ + Rse), donde d es el espesor del núcleo en metros, λ es la conductividad térmica (0,022 W/mK para PIR; 0,038 W/mK para Lana de Roca) y las resistencias superficiales Rsi = 0,13 y Rse = 0,04 m²K/W según ISO 6946. Un panel PIR de 100 mm da aproximadamente U = 0,21 W/m²K. Usa nuestra Calculadora U-Value para obtener la especificación exacta según la zona climática de tu proyecto.',
       },
       {
-        q: '¿Cómo se calcula el U-value térmico de un panel sándwich?',
-        a: [
-          'El coeficiente global de transferencia de calor (U-value) mide cuánto calor escapa a través de un metro cuadrado estructural por grado de diferencia de temperatura.',
-          'Fórmula: U = 1 / (R_superficie_interna + R_aislamiento_núcleo + R_superficie_externa)',
-          'Como las pieles de acero ofrecen una resistencia térmica despreciable, el cálculo se corresponde con el grosor del aislamiento del núcleo (metros) dividido por su valor Lambda específico. Ejemplo: U = 1 / (0,13 + (0,10 / 0,022) + 0,04) ≈ 0,21 W/m²K',
-        ],
+        q: '¿Qué espesor de panel PIR necesito para una cámara frigorífica?',
+        a: 'Para cámaras de congelación por debajo de −18 °C se necesitan generalmente paneles PIR de 150–200 mm (U ≤ 0,12 W/m²K). Para refrigeración positiva (0–8 °C) se emplean habitualmente 100–120 mm de PIR (U ≤ 0,18 W/m²K). Estos espesores evitan ciclos de condensación en la cara fría y minimizan la sobrecarga del compresor. La especificación exacta depende de la temperatura interior, la temperatura exterior de diseño y la superficie construida; nuestro equipo técnico puede facilitar un cálculo completo de carga energética a petición.',
       },
       {
-        q: '¿Están certificados los Euro Sandwich Panels bajo normas europeas?',
-        a: [
-          'Absolutamente. Los paneles sándwich europeos deben adherirse estrictamente a la norma EN 14509. Esta norma dicta criterios de prueba estructural, tolerancias de resistencia al viento, perfiles de capacidad de carga, comportamientos de meteorización, reglas de seguridad frente a la penetración de agua y clasificaciones estrictas de rendimiento de combustión.',
-        ],
+        q: '¿Cuánto tiempo dura el rendimiento térmico de un panel sándwich?',
+        a: 'Los paneles de alta calidad con núcleo PIR o PUR mantienen el ≥ 90 % de su resistencia térmica inicial durante 40 a 50 años cuando se instalan correctamente, gracias a las caras de acero galvanizado estancas a la difusión que retienen los gases de baja conductividad en las celdas cerradas. Los paneles Rockwool tienen estabilidad térmica indefinida porque la conductividad de la fibra mineral no se degrada con el tiempo. Los ensayos de envejecimiento a largo plazo se realizan conforme al Anexo D de EN 14509.',
+      },
+      // ── FUEGO ────────────────────────────────────────────────────────────
+      {
+        q: '¿Qué clasificación al fuego tienen los paneles sándwich? PIR vs Rockwool vs PUR.',
+        a: 'Las clases de reacción al fuego conforme a EN 13501-1 son: núcleo Rockwool — Clase A1 o A2-s1, d0 (no combustible, sin gotas en llamas); núcleo PIR — Clase B-s1, d0 (difícilmente inflamable, sin gotas); núcleo PUR — Clase C-s2, d0 (combustibilidad limitada, humo moderado). Para paredes de compartimentación, barreras cortafuego y edificios que requieran clasificaciones EI 60/90/120, la Lana de Roca es la opción de ingeniería obligatoria. El PIR cumple la normativa vigente para la mayoría de almacenes, naves logísticas y fachadas comerciales.',
       },
       {
-        q: '¿Cuánto duran los paneles sándwich aislados en condiciones extremas?',
-        a: [
-          'Los paneles arquitectónicos de alta calidad mantienen los estándares de rendimiento estructural y térmico durante 40 a 50+ años. Los recubrimientos exteriores de acero de alta durabilidad (como el Poliuretano con perlas de Poliamida - PURAL) resisten la corrosión de entornos marinos, elementos ácidos y exposición ultravioleta intensiva.',
-        ],
+        q: '¿Pueden usarse paneles sándwich como barreras de compartimentación contra incendios?',
+        a: 'Sí, pero únicamente los paneles con núcleo Rockwool de Clase A1 o A2 son adecuados para compartimentación (conjuntos con clasificación EI). El sistema completo —panel, fijaciones, juntas e interfaces— debe estar ensayado como conjunto bajo EN 1365 o EN 1364 para obtener la clasificación EI requerida (Integridad e Aislamiento). Los paneles con núcleo PIR o PUR no deben especificarse para muros cortafuego sin un certificado de ensayo de fuego del conjunto completo.',
+      },
+      // ── NORMATIVA ────────────────────────────────────────────────────────
+      {
+        q: '¿Qué significa la certificación EN 14509 en paneles sándwich?',
+        a: 'EN 14509 es la norma europea armonizada para paneles sándwich aislantes de doble cara metálica. Exige control de producción en fábrica, marcado CE y ensayos por terceros en: tablas de cargas estructurales (viento, nieve, cargas puntuales), transmitancia térmica (U-value), reacción al fuego, estanquidad al agua y tolerancias dimensionales. Los paneles con marcado CE bajo EN 14509 incluyen una Declaración de Prestaciones (DoP) que puede presentarse directamente para el cumplimiento de la licencia de obra en países de la UE y el EEE. Solicita siempre el DoP vigente a tu proveedor.',
+      },
+      {
+        q: '¿Son los paneles sándwich aptos para edificios certificados BREEAM o LEED?',
+        a: 'Sí. Los paneles con núcleo PIR y Rockwool pueden contribuir créditos en BREEAM (Energía, Materiales, Salud y Bienestar) y LEED (Energía y Atmósfera, Calidad Ambiental Interior). Los paneles PIR con agentes de expansión de ODP cero y bajo GWP califican para créditos de Materiales. El núcleo mineral Rockwool contiene un alto porcentaje de contenido reciclado. La asignación de créditos específica depende de la versión del esquema y la verificación del evaluador; solicita las Declaraciones Ambientales de Producto (DAP/EPD) a tu proveedor para la documentación.',
+      },
+      // ── MATERIALES ───────────────────────────────────────────────────────
+      {
+        q: '¿Cuál es la diferencia entre paneles sándwich con núcleo PIR y PUR?',
+        a: 'PIR (Poliisocianurato) y PUR (Poliuretano) son ambos núcleos de espuma rígida de celda cerrada, pero el PIR incorpora un entrecruzamiento adicional que produce mayor residuo carbonoso al exponerse a la llama, mejorando su comportamiento frente al fuego de Clase C (PUR) a Clase B (PIR). El PIR también logra un valor lambda ligeramente más bajo (0,022 frente a 0,024 W/mK), lo que permite espesores menores para el mismo U-value. Para la mayoría de aplicaciones comerciales e industriales en mercados regulados, el PIR ha reemplazado en gran medida al PUR. El PUR sigue siendo rentable para naves agrícolas ambientales y proyectos de almacén sin exigencias estrictas de incendio.',
+      },
+      {
+        q: '¿Qué recubrimientos de acero están disponibles y cuál especifico para zonas costeras?',
+        a: 'Los sistemas de recubrimiento de menor a mayor durabilidad son: Poliéster (PE) 25 µm — uso interior general; Poliéster de Alta Durabilidad (HDP) 35 µm — exterior estándar; PVDF 27 µm — resistencia premium a UV y productos químicos; PURAL (Poliuretano + microesferas de Poliamida) 50 µm — máxima resistencia a impactos y arañazos. Para zonas marinas o costeras a menos de 1–5 km del litoral, especifica PVDF o PURAL sobre acero base galvanizado mínimo Z275 (275 g/m² de recubrimiento de zinc). Las caras de acero inoxidable están disponibles para entornos agresivos de procesamiento de alimentos y farmacéutica.',
+      },
+      // ── INSTALACIÓN ──────────────────────────────────────────────────────
+      {
+        q: '¿Cómo se fijan los paneles sándwich a la estructura soporte?',
+        a: 'Los paneles se fijan con tornillos autotaladrantes que penetran la estructura de acero soporte (correas, raíles o montantes) un mínimo de 20 mm. Los tornillos se aplican en la nervadura de junta para fijación oculta o a través de la cara del panel para fijación vista. El par de apriete debe ajustarse a 4–6 Nm para evitar el hundimiento de la piel, que crearía puentes térmicos en cada punto de fijación. Las arandelas de neopreno con inoxidable son obligatorias en todas las fijaciones vistas. Los centros de fijación se obtienen de las tablas de vano del fabricante para la zona de viento de diseño.',
+      },
+      {
+        q: '¿Cuáles son los errores de instalación más frecuentes y cómo evitarlos?',
+        a: 'Los seis errores más reportados son: (1) dejar el film protector tras la instalación — el calor UV lo fusiona permanentemente al recubrimiento; (2) desalinear el primer panel — los errores se acumulan a lo largo del plano; (3) apretar en exceso los tornillos — deforma la piel y crea puentes térmicos; (4) enganche incompleto del machihembrado — permite infiltración de aire y entrada de humedad; (5) usar tornillos de acero al carbono en zonas costeras — provoca sangrado de óxido y corrosión; (6) solapes de remate sin sellado — más del 60 % de las reclamaciones por entrada de agua tras la instalación se originan en remates. Consulta nuestra Guía de Instalación Paso a Paso para los procedimientos correctivos.',
+      },
+      // ── CONTRATACIÓN ─────────────────────────────────────────────────────
+      {
+        q: '¿Cómo solicito un presupuesto técnico para un proyecto de paneles sándwich?',
+        a: 'Para recibir una especificación y estimación de precio precisas, facilita: (1) aplicación del panel (muro / cubierta / cámara frigorífica); (2) preferencia de material del núcleo; (3) U-value requerido o espesor mínimo; (4) superficie total en m²; (5) sector del edificio y ubicación. Usa nuestro Configurador de Presupuesto online para precios indicativos en el mismo día, o contacta directamente a nuestro equipo técnico para proyectos complejos que requieran verificación de cargas estructurales o especificaciones de recubrimiento a medida. Respondemos a todas las consultas en menos de 24 horas.',
       },
     ],
+    cta: {
+      eyebrow: '¿Listo para Especificar?',
+      title: 'Configura tus Requisitos de Panel',
+      body: 'Usa nuestro Configurador de Presupuesto interactivo para seleccionar tipo de núcleo, espesor y color, y envía los datos de tu proyecto para recibir una estimación personalizada en menos de 24 horas.',
+      btn: 'Solicitar Presupuesto',
+      href: '/es/#quote',
+      secondary: 'Explorar Aplicaciones',
+      secondaryHref: '/es/applications/',
+    },
   },
   footer: {
     tagline: 'Soluciones Europeas de Aislamiento de Calidad. Recursos educativos, catálogos de rendimiento estructural y parámetros técnicos dedicados a envolventes de edificios.',

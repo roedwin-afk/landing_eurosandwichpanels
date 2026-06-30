@@ -130,11 +130,17 @@ const ctaHref = lang === "es" ? `${base}es/#quote` : `${base}#quote`;
     transition: opacity var(--transition);
   }
 
+  .navbar__logo-img {
+        display: block;
+        height: 3.5rem;
+        width: auto;
+    }
+
   .navbar__logo:hover {
     opacity: 0.85;
   }
 
-  .navbar__logo-icon {
+  /* .navbar__logo-icon {
     height: 2.5rem;
     width: 2.5rem;
     border-radius: var(--radius-md);
@@ -146,7 +152,7 @@ const ctaHref = lang === "es" ? `${base}es/#quote` : `${base}#quote`;
     font-weight: 700;
     font-size: var(--text-lg);
     flex-shrink: 0;
-  }
+  } */
 
   .navbar__logo-e {
     color: var(--color-accent);

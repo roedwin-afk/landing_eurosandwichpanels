@@ -10,8 +10,18 @@ const wp = createWPClient(config.wpUrl);
 const { posts, totalPages } = await wp.getPosts({ perPage: config.postsPerPage ?? 5 });
 
 const locale = config.locale ?? 'en';
-const hero = resolveHero(config.hero, locale);
-const ui = resolveUI(config.ui, locale);
+
+const base = import.meta.env.BASE_URL;
+
+const { lang, t, canonicalURL, alternateURL } = getPageI18n(
+  Astro.url,
+  base
+);
+
+const hero = resolveHero(config.hero, lang);
+const ui = resolveUI(config.ui, lang);
+
+console.log({lang,hero,ui})
 
 const bt = {
   blog: {
@@ -24,13 +34,6 @@ const bt = {
     btn_next:    ui.btnNext,
   },
 };
-
-const base = import.meta.env.BASE_URL;
-
-const { lang, t, canonicalURL, alternateURL } = getPageI18n(
-  Astro.url,
-  base
-);
 ---
 
 <Layout t={t} lang={lang} canonicalURL={canonicalURL} alternateURL={alternateURL}>

@@ -200,6 +200,50 @@ const apps: { key: AppKey; label: string }[] = [
   </div>
 </section>
 
+<script>
+  function initSectionObserver() {
+    // Solo corre en la home
+    const isHome = window.location.pathname.replace(/\/$/, '') === 
+                   (import.meta.env.BASE_URL + 'es').replace(/\/$/, '') ||
+                   window.location.pathname.replace(/\/$/, '') === 
+                   import.meta.env.BASE_URL.replace(/\/$/, '');
+
+    if (!isHome) return;
+
+    const sectionLinks = document.querySelectorAll<HTMLAnchorElement>('a[data-section]');
+    if (!sectionLinks.length) return;
+
+    const observers: IntersectionObserver[] = [];
+
+    sectionLinks.forEach((link) => {
+      const sectionId = link.dataset.section!;
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            link.classList.add('nav-link--active');
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.classList.remove('nav-link--active');
+            link.removeAttribute('aria-current');
+          }
+        },
+        {
+          threshold: 0.5, // 50% de la sección visible para activarse
+        }
+      );
+
+      observer.observe(section);
+      observers.push(observer);
+    });
+  }
+
+  // Astro View Transitions: re-inicializar en cada navegación
+  document.addEventListener('astro:page-load', initSectionObserver);
+</script>
+
 <style>
   .calculator {
     background-color: var(--color-bg);
