@@ -279,6 +279,10 @@ const base = import.meta.env.BASE_URL;
     color: var(--color-accent);
   }
 
+  .nav-link--active {
+    color: var(--color-primary);
+  }
+
   /* Override NavLinks styles inside footer */
   .footer__col :global(.nav-link) {
     font-size: var(--text-xs);
@@ -294,6 +298,10 @@ const base = import.meta.env.BASE_URL;
 
   .footer__col :global(.nav-links--vertical) {
     gap: var(--space-2);
+  }
+
+  .footer__col :global(.nav-link--active) {
+    color: var(--color-accent) !important;
   }
 
   /* ── Standards col ── */
